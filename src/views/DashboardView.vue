@@ -2,6 +2,8 @@
 
 <template>
   <main>
-    <h1>Home</h1>
+    <h1>Dashboard</h1>
   </main>
 </template>
+
+<style></style>
