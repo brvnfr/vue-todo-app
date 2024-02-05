@@ -11,6 +11,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "stylus": "^0.62.0",
+    "stylus-loader": "^8.1.0",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
