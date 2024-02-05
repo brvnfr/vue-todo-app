@@ -3,18 +3,38 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
+  <div>
+    <header>
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/dashboard">Dashboard</RouterLink>
         <RouterLink to="/tasks">Tarefas</RouterLink>
         <RouterLink to="/settings">Configurações</RouterLink>
       </nav>
-    </div>
-  </header>
-
-  <RouterView />
+    </header>
+    <main>
+      <RouterView></RouterView>
+    </main>
+  </div>
 </template>
 
-<style scoped lang="stylus"></style>
+<style lang="stylus" scoped>
+header {
+  background-color: #3498db;
+  padding: 10px;
+  text-align: center;
+
+  nav {
+    a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+}
+
+main {
+  padding: 20px;
+}
+</style>
