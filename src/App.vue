@@ -19,12 +19,14 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style lang="stylus" scoped>
+@import './styles/variables.styl';
+
 header {
-  background-color: #3498db;
   padding: 10px;
   text-align: center;
 
   nav {
+  background-color: main-color;
     a {
       color: #fff;
       margin: 0 10px;
