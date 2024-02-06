@@ -1,1 +1,37 @@
-main-color = #090867
+// ~ brand colors
+dodger-blue-palette = {
+    #2693FF
+}
+gray-blue-palette = {
+    50 =  #F4FBFF
+    100 = #E9F4FB
+    200 = #D6E6EF
+    300 = #BFDAEB
+    400 = #AECBDE
+    500 = #A6C1D2
+    600 = #77899E
+    700 = #748CA5
+    800 = #5D7893
+    900 = #4E5F70
+    950 = #283848
+    
+}
+
+//mixin gray-blue color  palette
+calculate-grey-blue = (base-color, level) =>
+    mix($main-color, #77899E, level) // Aqui você pode ajustar a cor base conforme necessário
+
+// Defina a cor principal e os níveis desejados
+$main-color = #2693FF
+$secondary-color = white
+$grey-blue-levels = 50 100 200 300 400 500 600 700 800 900 950
+
+// Mixin para gerar estilos de cor azul cinzento
+grey-blue-mixin()
+    for level in $grey-blue-levels
+        .grey-blue-{level}
+            background-color calculate-grey-blue($main-color, level)
+
+// Exemplo de uso do mixin
+body
+    grey-blue-mixin()
