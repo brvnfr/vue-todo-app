@@ -1,6 +1,17 @@
 @import './variables.styl';
 
-
+* {
+    margin: 0;
+    padding: 0;
+    font:  brand-font;
+}
 h1 {
   color: red !important;
 }
+// Exemplo de Uso
+.title
+    text-styles(24px, 600, #333, 0.5px)
+
+.body-text
+    text-styles(16px, 400, #555, 0.3px)
+

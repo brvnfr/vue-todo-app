@@ -1,37 +1,43 @@
 // ~ brand colors
-dodger-blue-palette = {
-    #2693FF
+brand-blue = {
+   '400': '#46A3FF',
+   '500': '#2693FF',
+   '600': '#1182F2'
 }
+
 gray-blue-palette = {
-    50 =  #F4FBFF
-    100 = #E9F4FB
-    200 = #D6E6EF
-    300 = #BFDAEB
-    400 = #AECBDE
-    500 = #A6C1D2
-    600 = #77899E
-    700 = #748CA5
-    800 = #5D7893
-    900 = #4E5F70
-    950 = #283848
-    
+     '100': '#F4FBFF',
+     '150': '#E9F4FB',
+     '200': '#D6E6EF',
+     '300': '#BFDAEB',
+     '400': '#AECBDE',
+     '500': '#A6C1D2',
+     '600': '#77899E',
+     '700': '#748CA5',
+     '800': '#5D7893',
+     '900': '#4E5F70',
+     '950': '#283848'   
 }
 
-//mixin gray-blue color  palette
-calculate-grey-blue = (base-color, level) =>
-    mix($main-color, #77899E, level)
+green-palette = {
+    '400': '#5ECDA5',
+    '500': '#1AD18F',
+    '600': '#0ED984'
+}
 
-// cor principal e palettes
-$main-color = #2693FF
-$secondary-color = white
-$grey-blue-levels = 50 100 200 300 400 500 600 700 800 900 950
+red-palette = {
+   '500': '#FF4874',
+   '600': '#FF2E79'
+}
 
-// mixin para gerar estilos de cor azul cinzento
-grey-blue-mixin()
-    for level in $grey-blue-levels
-        .grey-blue-{level}
-            background-color calculate-grey-blue($main-color, level)
+// Typography
+@import url('https://fonts.cdnfonts.com/css/svn-gilroy');
+brand-font = 'SVN-Gilroy', sans-serif;
 
-// Exemplo de uso do mixin
-body
-    grey-blue-mixin()
+// Mixin de Tipografia
+text-styles(size, weight, color, spacing) 
+    font-size size
+    font-weight weight
+    color color
+    letter-spacing spacing
+    font-family brand-font
