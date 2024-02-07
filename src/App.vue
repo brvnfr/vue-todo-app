@@ -1,21 +1,7 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
+<script setup></script>
 
 <template>
-  <div>
-    <header>
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/dashboard">Dashboard</RouterLink>
-        <RouterLink to="/tasks">Tarefas</RouterLink>
-        <RouterLink to="/settings">Configurações</RouterLink>
-      </nav>
-    </header>
-    <main>
-      <RouterView></RouterView>
-    </main>
-  </div>
+  <RouterView></RouterView>
 </template>
 
 <style lang="stylus" scoped>
