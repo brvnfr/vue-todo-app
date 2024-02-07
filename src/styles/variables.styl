@@ -5,7 +5,7 @@ brand-blue = {
    '600': '#1182F2'
 }
 
-gray-blue-palette = {
+brand-gray = {
      '100': '#F4FBFF',
      '150': '#E9F4FB',
      '200': '#D6E6EF',
@@ -19,13 +19,13 @@ gray-blue-palette = {
      '950': '#283848'   
 }
 
-green-palette = {
+brand-green = {
     '400': '#5ECDA5',
     '500': '#1AD18F',
     '600': '#0ED984'
 }
 
-red-palette = {
+brand-red = {
    '500': '#FF4874',
    '600': '#FF2E79'
 }
@@ -53,3 +53,20 @@ text-styles(size, weight, color, spacing)
     // Exemplo de Uso
     // .title
     //     text-styles(24px, 600, #333, 0.5px)
+
+
+
+// Mixin para aplicar estilo de borda
+border-styles(width, radius)
+    border-width width
+    border-radius radius
+
+// Exemplo de Uso
+// .rounded-border
+//     border-styles(4px, 5px)
+
+// .medium-rounded-border
+//     border-styles(5px, 5px)
+
+// .large-rounded-border
+//     border-styles(40px, 100px)
