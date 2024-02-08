@@ -9,7 +9,7 @@ brand-gray-150 = #E9F4FB
 brand-gray-200 = #D6E6EF
 brand-gray-300 = #BFDAEB
 brand-gray-400 = #AECBDE
-brand-gray-500 = #A6C1D2
+brand-gray-500 = #A6C1D2 
 brand-gray-600 = #77899E
 brand-gray-700 = #748CA5
 brand-gray-800 = #5D7893
@@ -49,8 +49,9 @@ border-styles(width, radius)
 // .rounded-border
 //     border-styles(4px, 5px)
 
-// .medium-rounded-border
-//     border-styles(5px, 5px)
+//Mixin para criar sombras
+box-shadow-mixin(offset-x, offset-y, blur-radius, color)
+  box-shadow offset-x offset-y blur-radius color
 
-// .large-rounded-border
-//     border-styles(40px, 100px)
+//   Exemplo de Uso
+//    box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1)); 

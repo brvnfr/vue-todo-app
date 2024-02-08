@@ -30,9 +30,6 @@
       <main>
         <router-view></router-view>
       </main>
-      <footer>
-        <!-- Conteúdo do rodapé aqui -->
-      </footer>
     </div>
   </div>
 </template>
@@ -42,6 +39,7 @@
 
 .app-layout {
   display: flex;
+  height: 100dvh;
 }
 
 .vertical-nav {
@@ -49,8 +47,7 @@
   color: #fff;
   padding: 20px;
   width: 120px;
-  position: fixed;
-  height: 100%;
+  position: block;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -101,17 +98,19 @@
 }
 
 .content-wrapper {
-  margin-left: 140px;
-  padding: 20px;
+ width: calc(100% - 100px);
   flex: 1;
-
-  header, main, footer {
-    margin-bottom: 20px;
+  header {
+    position:block;
+    height: 80px
+    margin-bottom:2px;
+    box-shadow-mixin(0, 1px, 6px, rgba(40, 56, 72, 0.25));
   }
-}
 
-header, main, footer {
-  background-color: brand-gray-100;
-  padding: 20px;
+  main {
+    background-color: brand-gray-150;
+    width 100%
+    height: calc(100dvh - 100px)
+  }
 }
 </style>
