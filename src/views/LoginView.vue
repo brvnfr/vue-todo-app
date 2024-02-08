@@ -1,8 +1,10 @@
 <template>
   <div class="app-layout">
     <header class="header-section">
-      <img src="@/assets/brand/logo.svg" alt="Brand Logo" class="brand-logo" />
-      <h1><strong>FACILITA</strong>TASKS</h1>
+      <article class="header-content">
+        <img src="@/assets/brand/logo.svg" alt="Brand Logo" class="brand-logo" />
+        <h1><strong>FACILITA</strong>TASKS</h1>
+      </article>
     </header>
     <section class="main-content">
       <main class="centered-content">
@@ -38,8 +40,14 @@
   flex 0.5
   display flex
   flex-direction column
-  justify-content center
   align-items center
+  justify-content center
+
+.header-content
+  display flex
+  flex-direction column
+  align-items flex-start
+  justify-content flex-start
 
   .brand-logo
     width 100px
