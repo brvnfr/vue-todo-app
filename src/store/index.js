@@ -13,7 +13,7 @@ export default createStore({
   actions: {
     login({ commit }, credentials) {
       // Simula a lógica de autenticação
-      const isAuthenticated = credentials.username === 'user' && credentials.password === 'password'
+      const isAuthenticated = credentials.username === 'user' && credentials.password === '123'
 
       if (isAuthenticated) {
         commit('setAuth', true)

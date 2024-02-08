@@ -8,14 +8,14 @@
     </header>
     <section class="main-content">
       <main class="centered-content">
-        <form class="login-form">
+        <form class="login-form" @submit.prevent="handleLogin">
           <div class="form-group">
             <label for="username">Username:</label>
-            <input type="text" id="username" class="form-input" />
+            <input v-model="username" type="text" id="username" class="form-input" />
           </div>
           <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" id="password" class="form-input" />
+            <input v-model="password" type="password" id="password" class="form-input" />
           </div>
           <button type="submit" class="login-btn">Login</button>
         </form>
@@ -24,6 +24,34 @@
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      username: '',
+      password: '',
+    }
+  },
+  methods: {
+    async handleLogin() {
+      try {
+        const isAuthenticated = await this.$store.dispatch('login', {
+          username: this.username,
+          password: this.password,
+        })
+
+        if (isAuthenticated) {
+          this.$router.push('/tasks')
+        } else {
+          console.error('Erro no login: Credenciais inválidas')
+        }
+      } catch (error) {
+        console.error('Erro no login:', error)
+      }
+    },
+  },
+}
+</script>
 <style lang="stylus" scoped>
 @import '../styles/variables.styl'
 
