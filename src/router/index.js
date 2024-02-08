@@ -1,3 +1,4 @@
+// router.js
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -5,34 +6,39 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: import('../components/MainLayout.vue'),
+      component: import('@/components/MainLayout.vue'),
       children: [
         {
           path: '',
-          component: import('../views/HomeView.vue'),
+          component: import('@/views/HomeView.vue'),
         },
         {
           path: '/dashboard',
           name: 'dashboard',
-          component: () => import('../views/DashboardView.vue'),
+          component: () => import('@/views/DashboardView.vue'),
         },
         {
           path: '/tasks',
           name: 'tarefas',
-          component: () => import('../views/TasksView.vue'),
+          component: () => import('@/views/TasksView.vue'),
         },
         {
           path: '/settings',
           name: 'configuracoes',
-          component: () => import('../views/SettingsView.vue'),
+          component: () => import('@/views/SettingsView.vue'),
         },
       ],
     },
     {
       path: '/login',
-      component: () => import('../views/LoginView.vue'),
+      component: () => import('@/views/LoginView.vue'),
     },
   ],
 })
+
+export const isRouteActive = (route) => {
+  const currentRoute = router.currentRoute.value
+  return currentRoute.path.startsWith(route)
+}
 
 export default router
