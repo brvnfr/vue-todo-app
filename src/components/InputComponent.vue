@@ -4,16 +4,19 @@
     <input
       :type="type"
       :id="name"
-      :value="value"
-      @input="$emit('update:value', $event)"
+      :value="modelValue"
       :style="{ width: width }"
       class="form-input"
+      @input="$emit('update:modelValue', $event)"
+      :autocomplete="
+        type === 'password' ? 'current-password' : type === 'text' ? 'username' : undefined
+      "
     />
   </div>
 </template>
 
 <script setup>
-const { props } = defineProps(['type', 'width', 'value', 'label', 'name'])
+const props = defineProps(['type', 'width', 'label', 'name', 'modelValue'])
 </script>
 
-<style scoped lang="stylus"></style>
+<style scoped></style>
