@@ -61,16 +61,22 @@
 
   .brand-logo {
     width: 60px;
-    margin-bottom: 20px;
     position: absolute;
     top: 0;
     margin: 1rem 2rem;
+    @media (max-width: 768px) {
+      position: relative;
+      margin: 0
+      width: 32px;
+      }
   }
 
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   li {
@@ -92,15 +98,39 @@
     gap: .5rem;
     margin: 1rem 0;
     text-styles(12px, 600, #fff, 1px);
-  }
 
-  .icon {
-    width: 36px;
   }
 
   span {
     text-align: center;
     font-size: 12px;
+    @media (max-width: 768px) {
+     display: none;
+      }
+  }
+
+  @media (max-width: 768px) {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+
+    ul {
+      flex-direction: row;
+      justify-content: space-evenly;
+      width: 100%;
+      padding: 0;
+    }
+
+    li {
+      border: none;
+      padding: 1rem;
+      &:hover,
+      &.active-link {
+        background-color: brand-blue-600;
+      }
+    }
   }
 }
 
@@ -112,10 +142,13 @@
     position: relative;
     display: flex;
     align-items: center;
-    justify-content:end;
+    justify-content: end;
     height: 80px;
     margin-bottom: 2px;
     box-shadow-mixin(0, 2px, 6px, rgba(40, 56, 72, 0.1));
+    @media (max-width: 768px) {
+     justify-content: center;
+      }
 
     .user-info {
       display: flex;
@@ -139,6 +172,10 @@
           text-styles(12px, 600, brand-blue-600, 0.25px);
           margin: 0;
         }
+
+        @media (max-width: 340px) {
+          display:none;
+      }
       }
     }
   }
@@ -147,9 +184,9 @@
     background-color: brand-gray-150;
     width: 100%;
     height: calc(100vh - 82px);
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: brand-gray-200;
   }
 }
