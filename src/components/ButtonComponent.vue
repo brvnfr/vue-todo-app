@@ -5,10 +5,18 @@
 </template>
 
 <script setup>
-const { props, emit } = defineProps(['type'])
+import { defineProps, defineEmits } from 'vue'
+
+const props = defineProps(['type'])
+const emit = defineEmits()
 
 const handleClick = () => {
-  emit('click')
+  console.log('Button Click received')
+  if (emit) {
+    emit('click')
+  } else {
+    console.error('Error: emit is not defined')
+  }
 }
 </script>
 
