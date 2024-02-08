@@ -25,7 +25,13 @@
     </nav>
     <div class="content-wrapper">
       <header>
-        <!-- Conteúdo do cabeçalho aqui -->
+        <div class="user-info">
+          <img src="@/assets/pics/user.png" alt="user" />
+          <div class="user-details">
+            <h5>Eduardo Pereira da Costa</h5>
+            <p>Front-end Developer</p>
+          </div>
+        </div>
       </header>
       <main>
         <router-view></router-view>
@@ -39,7 +45,7 @@
 
 .app-layout {
   display: flex;
-  height: 100dvh;
+  height: 100vh;
 }
 
 .vertical-nav {
@@ -69,8 +75,9 @@
 
   li {
     padding: 1rem 2rem;
-    border: 1px solid brand-blue-400
+    border: 1px solid brand-blue-400;
     transition: background-color .3s ease-in-out;
+
     &:hover,
     &.active-link {
       background-color: brand-blue-600;
@@ -83,7 +90,7 @@
     flex-direction: column;
     align-items: center;
     gap: .5rem;
-    margin:1rem 0;
+    margin: 1rem 0;
     text-styles(12px, 600, #fff, 1px);
   }
 
@@ -98,19 +105,52 @@
 }
 
 .content-wrapper {
- width: calc(100% - 100px);
+  width: calc(100% - 120px);
   flex: 1;
+
   header {
-    position:block;
-    height: 80px
-    margin-bottom:2px;
-    box-shadow-mixin(0, 1px, 6px, rgba(40, 56, 72, 0.25));
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content:end;
+    height: 80px;
+    margin-bottom: 2px;
+    box-shadow-mixin(0, 2px, 6px, rgba(40, 56, 72, 0.1));
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin: 2rem 2.5rem;
+      gap: .4rem;
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+
+      .user-details {
+        h5 {
+          text-styles(16px, bold, brand-gray-950, 0.25px);
+          margin: 0;
+        }
+
+        p {
+          text-styles(12px, 600, brand-blue-600, 0.25px);
+          margin: 0;
+        }
+      }
+    }
   }
 
   main {
     background-color: brand-gray-150;
-    width 100%
-    height: calc(100dvh - 100px)
+    width: 100%;
+    height: calc(100vh - 82px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color: brand-gray-200;
   }
 }
 </style>
