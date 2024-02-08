@@ -52,8 +52,8 @@ const inputWidth = '100%'
 const handleLogin = async () => {
   try {
     const isAuthenticated = await store.dispatch('login', {
-      username: username.value,
-      password: password.value,
+      username: username,
+      password: password,
     })
 
     if (isAuthenticated) {
@@ -66,7 +66,6 @@ const handleLogin = async () => {
   }
 }
 </script>
-
 <style lang="stylus" scoped>
 @import '../styles/variables.styl'
 
