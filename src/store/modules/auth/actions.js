@@ -2,8 +2,8 @@ export default {
   async login({ commit }, { username, password }) {
     console.log('formData:', username, password)
     try {
-      // Lógica de autenticação na store
-      // Simulação de autenticação bem-sucedida
+      // lógica de autenticação no módulo 'auth'
+      // simulação de autenticação bem-sucedida
       const isAuthenticated = username === 'test' && password === 'test'
 
       commit('setAuthenticated', isAuthenticated)

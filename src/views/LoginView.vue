@@ -56,6 +56,8 @@ const handleLogin = async () => {
       password: password.value,
     })
 
+    console.log('isAuthenticated:', isAuthenticated)
+
     if (isAuthenticated) {
       router.push('/tasks')
     } else {
@@ -65,6 +67,7 @@ const handleLogin = async () => {
     console.error('Erro no login:', error)
   }
 }
+
 </script>
 <style lang="stylus" scoped>
 @import '../styles/variables.styl'
