@@ -8,33 +8,49 @@
     </header>
     <section class="main-content">
       <main class="centered-content">
-        <form class="login-form" @submit.prevent="handleLogin">
-          <div class="form-group">
-            <label for="username">Username:</label>
-            <input v-model="username" type="text" id="username" class="form-input" />
-          </div>
-          <div class="form-group">
-            <label for="password">Password:</label>
-            <input v-model="password" type="password" id="password" class="form-input" />
-          </div>
-          <button type="submit" class="login-btn">Login</button>
-        </form>
+        <form-wrapper :button-text="buttonText" :button-type="buttonType" @submit="handleLogin">
+          <input-component
+            v-model="username"
+            type="text"
+            :width="inputWidth"
+            label="Username:"
+            name="username"
+          />
+          <input-component
+            v-model="password"
+            type="password"
+            :width="inputWidth"
+            label="Password:"
+            name="password"
+          />
+        </form-wrapper>
       </main>
     </section>
   </div>
 </template>
 
 <script>
+import FormWrapper from '@/components/FormWrapper.vue'
+import InputComponent from '@/components/InputComponent.vue'
+
 export default {
+  components: {
+    FormWrapper,
+    InputComponent,
+  },
   data() {
     return {
       username: '',
       password: '',
+      buttonText: 'Login',
+      buttonType: 'submit',
+      inputWidth: '100%',
     }
   },
   methods: {
     async handleLogin() {
       try {
+        // Envia os dados para a store usando a action 'login'
         const isAuthenticated = await this.$store.dispatch('login', {
           username: this.username,
           password: this.password,
@@ -52,6 +68,7 @@ export default {
   },
 }
 </script>
+
 <style lang="stylus" scoped>
 @import '../styles/variables.styl'
 
