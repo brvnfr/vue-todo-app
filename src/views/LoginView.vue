@@ -16,6 +16,7 @@
               :width="inputWidth"
               label="Username:"
               name="username"
+              autocomplete="username"
             />
           </div>
           <div class="form-group">
@@ -25,6 +26,7 @@
               :width="inputWidth"
               label="Password:"
               name="password"
+              autocomplete="current-password"
             />
           </div>
           <button-component type="submit" class="login-btn">Login</button-component>
