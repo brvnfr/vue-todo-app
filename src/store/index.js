@@ -11,10 +11,11 @@ const store = createStore({
   },
   actions: {
     async login({ commit }, { username, password }) {
+      console.log('formData:', username, password)
       try {
         //~ logica de autenticacao na store
         //~ simulação de autenticação bem-sucedida
-        const isAuthenticated = username === 'user' && password === 'password'
+        const isAuthenticated = username === 'test' && password === 'test'
 
         commit('setAuthenticated', isAuthenticated)
         return isAuthenticated

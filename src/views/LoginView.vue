@@ -52,8 +52,8 @@ const inputWidth = '100%'
 const handleLogin = async () => {
   try {
     const isAuthenticated = await store.dispatch('login', {
-      username: username,
-      password: password,
+      username: username.value,
+      password: password.value,
     })
 
     if (isAuthenticated) {
