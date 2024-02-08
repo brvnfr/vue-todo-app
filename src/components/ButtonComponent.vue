@@ -11,7 +11,6 @@ const props = defineProps(['type'])
 const emit = defineEmits()
 
 const handleClick = () => {
-  console.log('Button Click received')
   if (emit) {
     emit('click')
   } else {
