@@ -8,12 +8,13 @@
       :style="{ width: width }"
       class="form-input"
       @input="$emit('update:modelValue', $event.target.value)"
+      :autocomplete="autocomplete"
     />
   </div>
 </template>
 
 <script setup>
-const props = defineProps(['type', 'width', 'label', 'name', 'modelValue'])
+const props = defineProps(['type', 'width', 'label', 'name', 'modelValue', 'autocomplete'])
 </script>
 
 <style scoped></style>
