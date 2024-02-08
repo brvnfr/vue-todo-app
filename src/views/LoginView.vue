@@ -8,64 +8,60 @@
     </header>
     <section class="main-content">
       <main class="centered-content">
-        <form-wrapper :button-text="buttonText" :button-type="buttonType" @submit="handleLogin">
-          <input-component
-            v-model="username"
-            type="text"
-            :width="inputWidth"
-            label="Username:"
-            name="username"
-          />
-          <input-component
-            v-model="password"
-            type="password"
-            :width="inputWidth"
-            label="Password:"
-            name="password"
-          />
-        </form-wrapper>
+        <form @submit.prevent="handleLogin">
+          <div class="form-group">
+            <input-component
+              v-model="username"
+              type="text"
+              :width="inputWidth"
+              label="Username:"
+              name="username"
+            />
+          </div>
+          <div class="form-group">
+            <input-component
+              v-model="password"
+              type="password"
+              :width="inputWidth"
+              label="Password:"
+              name="password"
+            />
+          </div>
+          <button-component type="submit" class="login-btn">Login</button-component>
+        </form>
       </main>
     </section>
   </div>
 </template>
 
-<script>
-import FormWrapper from '@/components/FormWrapper.vue'
+<script setup>
+import { ref } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import InputComponent from '@/components/InputComponent.vue'
+import ButtonComponent from '@/components/ButtonComponent.vue'
 
-export default {
-  components: {
-    FormWrapper,
-    InputComponent,
-  },
-  data() {
-    return {
-      username: '',
-      password: '',
-      buttonText: 'Login',
-      buttonType: 'submit',
-      inputWidth: '100%',
+const store = useStore()
+const router = useRouter()
+const username = ref('')
+const password = ref('')
+const inputWidth = '100%'
+
+const handleLogin = async () => {
+  try {
+    const isAuthenticated = await store.dispatch('login', {
+      username: username.value,
+      password: password.value,
+    })
+
+    if (isAuthenticated) {
+      router.push('/tasks')
+    } else {
+      console.error('Erro no login: Credenciais inválidas')
     }
-  },
-  methods: {
-    async handleLogin() {
-      try {
-        // Envia os dados para a store usando a action 'login'
-        const isAuthenticated = await this.$store.dispatch('login', {
-          username: this.username,
-          password: this.password,
-        })
-
-        if (isAuthenticated) {
-          this.$router.push('/tasks')
-        } else {
-          console.error('Erro no login: Credenciais inválidas')
-        }
-      } catch (error) {
-        console.error('Erro no login:', error)
-      }
-    },
-  },
+  } catch (error) {
+    console.error('Erro no login:', error)
+  }
 }
 </script>
 
