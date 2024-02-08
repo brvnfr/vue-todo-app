@@ -1,30 +1,29 @@
 import { createStore } from 'vuex'
 
-export default createStore({
+const store = createStore({
   state: {
-    isAuthenticated: localStorage.getItem('isAuthenticated') === 'true',
+    isAuthenticated: false,
   },
   mutations: {
-    setAuth(state, isAuthenticated) {
+    setAuthenticated(state, isAuthenticated) {
       state.isAuthenticated = isAuthenticated
-      localStorage.setItem('isAuthenticated', isAuthenticated)
     },
   },
   actions: {
-    login({ commit }, credentials) {
-      // Simula a lógica de autenticação
-      const isAuthenticated = credentials.username === 'user' && credentials.password === '123'
+    async login({ commit }, { username, password }) {
+      try {
+        // logica de autenticacao na store
+        // simulação de autenticação bem-sucedida
+        const isAuthenticated = username === 'user' && password === 'password'
 
-      if (isAuthenticated) {
-        commit('setAuth', true)
+        commit('setAuthenticated', isAuthenticated)
+        return isAuthenticated
+      } catch (error) {
+        console.error('Erro no login:', error)
+        return false
       }
-
-      return isAuthenticated
-    },
-    logout({ commit }) {
-      // Simula a lógica de logout
-      commit('setAuth', false)
     },
   },
-  modules: {},
 })
+
+export default store
