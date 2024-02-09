@@ -22,7 +22,7 @@ const props = defineProps(['type', 'customHeight', 'label', 'name', 'modelValue'
 .form-group 
 
   label
-    text-styles(14px, 300, brand-gray-850, 1)
+    text-styles(14px, 600, brand-gray-800, 1)
 
   .form-input
     width -webkit-fill-available

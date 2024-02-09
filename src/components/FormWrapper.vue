@@ -21,6 +21,6 @@ const handleSubmit = () => {
 @import '.././styles/variables.styl'
 .form-wrapper 
   h5
-    text-styles(18px, 700, brand-gray-950, 1)
+    text-styles(18px, bold, brand-gray-950, 1)
     margin-bottom 36px
 </style>
