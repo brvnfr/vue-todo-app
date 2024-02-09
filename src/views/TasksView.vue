@@ -17,7 +17,7 @@
 
     <!-- Diálogo para adicionar tarefa -->
     <dialog-overlay :showOverlay="showAddTaskDialog" @close="closeAddTaskDialog">
-      <form-wrapper :formTitle="'Adicionar Tarefa'">
+      <form-wrapper :formTitle="'Adicionar Tarefa'" @submit="addTask">
         <input-component v-model="newTask.title" type="text" label="Título:" name="taskTitle" />
         <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
         <radio-list-component
@@ -28,14 +28,14 @@
             { label: 'Importante', value: 'important' },
           ]"
         />
-        <button-component type="submit" @click="addTask">Salvar</button-component>
+        <button-component type="submit">Salvar</button-component>
         <button-component @click="closeAddTaskDialog">Fechar</button-component>
       </form-wrapper>
     </dialog-overlay>
 
     <!-- Diálogo para editar tarefa -->
     <dialog-overlay :showOverlay="showEditTaskDialog" @close="closeEditTaskDialog">
-      <form-wrapper :formTitle="'Editar Tarefa'">
+      <form-wrapper :formTitle="'Editar Tarefa'" @submit="editTask">
         <input-component v-model="newTask.title" type="text" label="Título:" name="taskTitle" />
         <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
         <radio-list-component
@@ -46,7 +46,7 @@
             { label: 'Importante', value: 'important' },
           ]"
         />
-        <button-component type="submit" @click="editTask">Salvar</button-component>
+        <button-component type="submit">Salvar</button-component>
         <button-component @click="closeEditTaskDialog">Fechar</button-component>
       </form-wrapper>
     </dialog-overlay>

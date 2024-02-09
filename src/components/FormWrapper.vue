@@ -1,4 +1,3 @@
-<!-- eslint-disable no-unused-vars -->
 <template>
   <form class="form-wrapper" @submit.prevent="handleSubmit">
     <h5>
@@ -9,14 +8,22 @@
 </template>
 
 <script setup>
-import { defineEmits } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 const { formTitle } = defineProps(['formTitle'])
 const emit = defineEmits(['submit'])
 
 const handleSubmit = () => {
-  emit('submit')
+  // Adicione aqui a lógica de validação antes de emitir o evento de envio
+  if (validateForm()) {
+    emit('submit')
+  }
+}
+
+const validateForm = () => {
+  return true
 }
 </script>
+
 <style scoped lang="stylus">
 @import '.././styles/variables.styl'
 .form-wrapper
