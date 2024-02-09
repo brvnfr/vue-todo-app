@@ -2,23 +2,18 @@
   <section>
     <!-- Formulário para adicionar uma nova tarefa -->
     <form-wrapper :formTitle="editingTask !== null ? 'Editar Tarefa' : 'Adicionar Tarefa'">
-      <input-component
-        type="text"
-        label="Título:"
-        name="taskTitle"
-        :modelValue="taskTitleModel"
-        @update:modelValue="taskTitleModel = $event"
+      <input-component v-model="newTask.title" type="text" label="Título:" name="taskTitle" />
+
+      <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
+
+      <radio-list-component
+        name="newTaskPriority"
+        v-model="newTask.category"
+        :options="[
+          { label: 'Urgente', value: 'urgent' },
+          { label: 'Importante', value: 'important' },
+        ]"
       />
-
-      <label for="taskDescription">Descrição:</label>
-      <textarea v-model="newTask.description" id="taskDescription" rows="4"></textarea>
-
-      <label>
-        Prioridade:
-        <input type="radio" v-model="newTask.category" value="high" /> Urgente
-
-        <input type="radio" v-model="newTask.category" value="low" /> Importante
-      </label>
 
       <button-component type="submit" @click="addTask">Adicionar Tarefa</button-component>
     </form-wrapper>
@@ -40,12 +35,11 @@
       <h2>Editar Tarefa</h2>
       <form-wrapper :formTitle="'Editar Tarefa'">
         <input-component
+          v-model="editedTask.title"
           type="text"
           customHeight="auto"
           label="Título:"
           name="editedTaskTitle"
-          :modelValue="editedTask.title"
-          @update:modelValue="editedTask.title = $event"
         />
 
         <label for="editedTaskDescription">Descrição:</label>
@@ -64,47 +58,48 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useStore } from 'vuex'
 import InputComponent from '@/components/InputComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent.vue'
 import FormWrapper from '@/components/FormWrapper.vue'
+import TextAreaComponent from '@/components/TextAreaComponent.vue'
+import RadioListComponent from '@/components/RadioListComponent.vue'
 
 const store = useStore()
 
-const newTask = ref({
+let newTask = {
   title: '',
   description: '',
   completed: false,
   category: 'low',
-})
+}
 
-const editedTask = ref({
+let editedTask = {
   title: '',
   description: '',
   completed: false,
   category: 'low',
-})
+}
 
-const editingTask = ref(null)
-const tasks = ref(store.state.tasks.tasks)
-const taskTitleModel = ref(newTask.value.title)
+let editingTask = null
+let tasks = store.state.tasks.tasks
 
 const addTask = () => {
-  if (newTask.value.title.trim() !== '') {
-    store.commit('tasks/addTask', { ...newTask.value })
+  if (newTask.title.trim() !== '') {
+    store.commit('tasks/addTask', { ...newTask })
     resetNewTask()
   }
 }
 
 const editTask = (index) => {
-  editingTask.value = index
-  editedTask.value = { ...tasks.value[index] }
+  editingTask = index
+  editedTask = { ...tasks[index] }
 }
 
 const saveEditedTask = () => {
-  if (editedTask.value.title.trim() !== '') {
-    store.commit('tasks/editTask', { index: editingTask.value, task: { ...editedTask.value } })
+  if (editedTask.title.trim() !== '') {
+    store.commit('tasks/editTask', { index: editingTask, task: { ...editedTask } })
     resetEditingTask()
   }
 }
@@ -115,18 +110,17 @@ const deleteTask = (index) => {
 }
 
 const resetNewTask = () => {
-  newTask.value = {
+  newTask = {
     title: '',
     description: '',
     completed: false,
     category: 'low',
   }
-  taskTitleModel.value = newTask.value.title
 }
 
 const resetEditingTask = () => {
-  editingTask.value = null
-  editedTask.value = {
+  editingTask = null
+  editedTask = {
     title: '',
     description: '',
     completed: false,
@@ -141,7 +135,7 @@ onMounted(() => {
 watch(
   () => store.state.tasks.tasks,
   (newTasks) => {
-    tasks.value = newTasks
+    tasks = newTasks
   },
 )
 </script>

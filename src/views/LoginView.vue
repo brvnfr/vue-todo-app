@@ -36,7 +36,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import InputComponent from '@/components/InputComponent.vue'
@@ -45,14 +44,14 @@ import FormWrapper from '@/components/FormWrapper.vue'
 
 const store = useStore()
 const router = useRouter()
-const username = ref('')
-const password = ref('')
+let username = ''
+let password = ''
 
 const handleLogin = async () => {
   try {
     const isAuthenticated = await store.dispatch('auth/login', {
-      username: username.value,
-      password: password.value,
+      username,
+      password,
     })
 
     console.log('isAuthenticated:', isAuthenticated)

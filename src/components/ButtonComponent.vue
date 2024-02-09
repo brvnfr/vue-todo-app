@@ -12,11 +12,7 @@ const { type } = defineProps(['type'])
 const emit = defineEmits(['click'])
 
 const handleClick = () => {
-  if (emit) {
-    emit('click')
-  } else {
-    console.error('Error: emit is not defined')
-  }
+  emit('click')
 }
 </script>
 

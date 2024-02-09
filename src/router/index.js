@@ -45,19 +45,19 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  //~ Verifica se a rota requer autenticação
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    //~ Redireciona para a página de login se não estiver autenticado
-    if (!isAuthenticated()) {
-      next('/login')
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   //~ Verifica se a rota requer autenticação
+//   if (to.matched.some((record) => record.meta.requiresAuth)) {
+//     //~ Redireciona para a página de login se não estiver autenticado
+//     if (!isAuthenticated()) {
+//       next('/login')
+//     } else {
+//       next()
+//     }
+//   } else {
+//     next()
+//   }
+// })
 
 export const isRouteActive = (route) => {
   const currentRoute = router.currentRoute.value
