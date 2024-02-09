@@ -5,7 +5,7 @@
       :type="type"
       :id="name"
       :value="modelValue"
-      :style="{ width: width }"
+      :style="{ width: '100%', height: customHeight }"
       class="form-input"
       @input="$emit('update:modelValue', $event.target.value)"
       :autocomplete="autocomplete"
@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-const props = defineProps(['type', 'width', 'label', 'name', 'modelValue', 'autocomplete'])
+const props = defineProps(['type', 'customHeight', 'label', 'name', 'modelValue', 'autocomplete'])
 </script>
 
 <style scoped lang="stylus">

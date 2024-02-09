@@ -48,7 +48,6 @@ const store = useStore()
 const router = useRouter()
 const username = ref('')
 const password = ref('')
-const inputWidth = '100%'
 
 const handleLogin = async () => {
   try {
