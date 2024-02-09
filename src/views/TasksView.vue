@@ -58,7 +58,7 @@
 </template>
 
 <script setup>
-import { onMounted, watch } from 'vue'
+import { onMounted, computed } from 'vue'
 import { useStore } from 'vuex'
 import InputComponent from '@/components/InputComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent.vue'
@@ -83,11 +83,12 @@ let editedTask = {
 }
 
 let editingTask = null
-let tasks = store.state.tasks.tasks
+
+const tasks = computed(() => store.getters['tasks/getTasks'])
 
 const addTask = () => {
   if (newTask.title.trim() !== '') {
-    store.commit('tasks/addTask', { ...newTask })
+    store.dispatch('tasks/addTask', { ...newTask })
     resetNewTask()
   }
 }
@@ -99,13 +100,13 @@ const editTask = (index) => {
 
 const saveEditedTask = () => {
   if (editedTask.title.trim() !== '') {
-    store.commit('tasks/editTask', { index: editingTask, task: { ...editedTask } })
+    store.dispatch('tasks/editTask', { index: editingTask, task: { ...editedTask } })
     resetEditingTask()
   }
 }
 
 const deleteTask = (index) => {
-  store.commit('tasks/deleteTask', index)
+  store.dispatch('tasks/deleteTask', index)
   resetEditingTask()
 }
 
@@ -131,13 +132,6 @@ const resetEditingTask = () => {
 onMounted(() => {
   store.dispatch('tasks/fetchTasks')
 })
-
-watch(
-  () => store.state.tasks.tasks,
-  (newTasks) => {
-    tasks = newTasks
-  },
-)
 </script>
 
 <style scoped lang="stylus">

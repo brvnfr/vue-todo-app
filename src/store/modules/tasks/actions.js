@@ -1,19 +1,21 @@
 export default {
   fetchTasks({ commit }) {
     const savedTasks = JSON.parse(localStorage.getItem('tasks')) || []
-
     commit('setTasks', savedTasks)
   },
 
-  addTask({ commit }, task) {
+  addTask({ commit, state }, task) {
     commit('addTask', task)
+    localStorage.setItem('tasks', JSON.stringify(state.tasks))
   },
 
-  editTask({ commit }, { index, task }) {
+  editTask({ commit, state }, { index, task }) {
     commit('editTask', { index, task })
+    localStorage.setItem('tasks', JSON.stringify(state.tasks))
   },
 
-  deleteTask({ commit }, index) {
+  deleteTask({ commit, state }, index) {
     commit('deleteTask', index)
+    localStorage.setItem('tasks', JSON.stringify(state.tasks))
   },
 }
