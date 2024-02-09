@@ -5,7 +5,7 @@
       :type="type"
       :id="name"
       :value="modelValue"
-      :style="{ width: '100%', height: customHeight }"
+      :style="{ height: customHeight }"
       class="form-input"
       @input="$emit('update:modelValue', $event.target.value)"
       :autocomplete="autocomplete"
@@ -25,6 +25,7 @@ const props = defineProps(['type', 'customHeight', 'label', 'name', 'modelValue'
     text-styles(14px, 300, brand-gray-850, 1)
 
   .form-input
+    width -webkit-fill-available
     margin: 4px 0; 
     padding 16px
     border-radius 5px

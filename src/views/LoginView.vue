@@ -115,7 +115,7 @@ const handleLogin = async () => {
 
 .main-content
   flex 1
-  padding 20px
+  padding: 32px
 
 .centered-content
   display flex
