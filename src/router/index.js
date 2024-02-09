@@ -5,19 +5,24 @@ const isAuthenticated = () => {
   return store.state.auth.isAuthenticated;
 };
 
-// Rota de guarda de autenticação
+//~ Rota de guarda de autenticação
 const requireAuth = (to, from, next) => {
-  if (!isAuthenticated()) {
-    next('/login');
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!isAuthenticated()) {
+      next('/login');  //~ Redireciona para /login se não estiver autenticado
+    } else {
+      next();
+    }
   } else {
     next();
   }
 };
-
 const routes = [
   {
     path: '/',
+    redirect: '/tasks',
     component: () => import('@/components/MainLayout.vue'),
+    meta: { requiresAuth: true },
     children: [
       {
         path: '/dashboard',

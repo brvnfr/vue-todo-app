@@ -4,6 +4,7 @@
       <article class="header-content">
         <img src="@/assets/brand/logo.svg" alt="Brand Logo" class="brand-logo" />
         <h1><strong>FACILITA</strong>TASKS</h1>
+        <p>Gestão de tarefas pessoais</p>
       </article>
     </header>
     <section class="main-content">
@@ -14,7 +15,7 @@
               v-model="username"
               type="text"
               :width="inputWidth"
-              label="Username:"
+              label="Nome de usuário ou e-mail:"
               name="username"
               autocomplete="username"
             />
@@ -24,7 +25,7 @@
               v-model="password"
               type="password"
               :width="inputWidth"
-              label="Password:"
+              label="Senha:"
               name="password"
               autocomplete="current-password"
             />
@@ -75,12 +76,13 @@ const handleLogin = async () => {
 .app-layout
   display flex
   height 100vh
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 1100px) {
+    transition  all .5s ease
     flex-direction column
+  }
 
 .header-section
   background brand-blue-500
-  color #fff
   width 100%
   flex 0.5
   display flex
@@ -88,11 +90,25 @@ const handleLogin = async () => {
   align-items center
   justify-content center
 
+
 .header-content
   display flex
   flex-direction column
   align-items flex-start
   justify-content flex-start
+
+  
+
+  h1 {
+  text-styles(48px, 300, #fff, 1)
+  @media screen and (max-width: 375px) {
+    text-styles(36px, 300, #fff, 1)
+  }
+  } 
+
+  p {
+   text-styles(16px, 300, #fff, 1)
+  }
 
   .brand-logo
     width 100px
