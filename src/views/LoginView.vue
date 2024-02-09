@@ -14,7 +14,6 @@
             <input-component
               v-model="username"
               type="text"
-              :width="inputWidth"
               label="Nome de usuário ou e-mail:"
               name="username"
               autocomplete="username"
@@ -24,7 +23,6 @@
             <input-component
               v-model="password"
               type="password"
-              :width="inputWidth"
               label="Senha:"
               name="password"
               autocomplete="current-password"
@@ -88,6 +86,7 @@ const handleLogin = async () => {
   flex-direction column
   align-items center
   justify-content center
+  
 
 
 .header-content
