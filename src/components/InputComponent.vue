@@ -17,4 +17,24 @@
 const props = defineProps(['type', 'width', 'label', 'name', 'modelValue', 'autocomplete'])
 </script>
 
-<style scoped></style>
+<style scoped lang="stylus">
+@import '.././styles/variables.styl'
+.form-group 
+
+  label
+    text-styles(14px, 300, brand-gray-850, 1)
+
+  .form-input
+    margin: 4px 0; 
+    padding 16px
+    border-radius 5px
+    transition all 0.3s ease
+    border 2px solid brand-gray-300
+    outline none !important
+
+    &:focus, &:hover
+      border 2px solid brand-blue-500 
+
+
+    
+</style>
