@@ -1,3 +1,4 @@
+<!-- eslint-disable no-unused-vars -->
 <template>
   <form class="form-wrapper" @submit.prevent="handleSubmit">
     <h5>
@@ -9,14 +10,13 @@
 
 <script setup>
 import { defineEmits } from 'vue'
-
+const props = defineProps(['formTitle'])
 const emit = defineEmits(['submit'])
 
 const handleSubmit = () => {
   emit('submit')
 }
 </script>
-
 <style scoped lang="stylus">
 @import '.././styles/variables.styl'
 .form-wrapper

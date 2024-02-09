@@ -1,3 +1,4 @@
+<!-- eslint-disable no-unused-vars -->
 <template>
   <button :type="type" @click="handleClick">
     <slot></slot>
@@ -5,8 +6,9 @@
 </template>
 
 <script setup>
-import { defineEmits } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 
+const props = defineProps(['type'])
 const emit = defineEmits(['click'])
 
 const handleClick = () => {
