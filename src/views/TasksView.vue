@@ -1,65 +1,62 @@
 <template>
   <section>
-    <!-- Formulário para adicionar uma nova tarefa -->
-    <form-wrapper :formTitle="editingTask !== null ? 'Editar Tarefa' : 'Adicionar Tarefa'">
-      <input-component v-model="newTask.title" type="text" label="Título:" name="taskTitle" />
-
-      <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
-
-      <radio-list-component
-        name="newTaskPriority"
-        v-model="newTask.category"
-        :options="[
-          { label: 'Urgente', value: 'urgent' },
-          { label: 'Importante', value: 'important' },
-        ]"
-      />
-
-      <button-component type="submit" @click="addTask">Adicionar Tarefa</button-component>
-    </form-wrapper>
+    <!-- Botão para abrir o diálogo de adicionar tarefa -->
+    <button @click="openAddTaskDialog">Adicionar Tarefa</button>
 
     <!-- Lista de Tarefas -->
     <ul>
       <li v-for="(task, index) in tasks" :key="index">
         {{ task.title }}
-        <button @click="editTask(index)">Editar</button>
+        <button @click="editTaskDialog(index)">Editar</button>
         <button @click="deleteTask(index)">Excluir</button>
         <span v-if="task.completed">Completa</span>
-        <span v-if="task.category === 'high'">Urgente</span>
-        <span v-if="task.category === 'low'">Importante</span>
+        <span v-if="task.category === 'urgent'">Urgente</span>
+        <span v-if="task.category === 'important'">Importante</span>
       </li>
     </ul>
 
-    <!-- Formulário para editar uma tarefa -->
-    <div v-if="editingTask !== null">
-      <h2>Editar Tarefa</h2>
-      <form-wrapper :formTitle="'Editar Tarefa'">
-        <input-component
-          v-model="editedTask.title"
-          type="text"
-          customHeight="auto"
-          label="Título:"
-          name="editedTaskTitle"
+    <!-- Diálogo para adicionar tarefa -->
+    <dialog-overlay :showOverlay="showAddTaskDialog" @close="closeAddTaskDialog">
+      <form-wrapper :formTitle="'Adicionar Tarefa'">
+        <input-component v-model="newTask.title" type="text" label="Título:" name="taskTitle" />
+        <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
+        <radio-list-component
+          name="newTaskPriority"
+          v-model="newTask.category"
+          :options="[
+            { label: 'Urgente', value: 'urgent' },
+            { label: 'Importante', value: 'important' },
+          ]"
         />
-
-        <label for="editedTaskDescription">Descrição:</label>
-        <textarea v-model="editedTask.description" id="editedTaskDescription" rows="4"></textarea>
-
-        <label>
-          Prioridade:
-          <input type="radio" v-model="editedTask.category" value="high" /> Urgente
-          <input type="radio" v-model="editedTask.category" value="low" /> Importante
-        </label>
-
-        <button-component type="submit" @click="saveEditedTask">Salvar</button-component>
+        <button-component type="submit" @click="addTask">Salvar</button-component>
+        <button-component @click="closeAddTaskDialog">Fechar</button-component>
       </form-wrapper>
-    </div>
+    </dialog-overlay>
+
+    <!-- Diálogo para editar tarefa -->
+    <dialog-overlay :showOverlay="showEditTaskDialog" @close="closeEditTaskDialog">
+      <form-wrapper :formTitle="'Editar Tarefa'">
+        <input-component v-model="newTask.title" type="text" label="Título:" name="taskTitle" />
+        <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
+        <radio-list-component
+          name="newTaskPriority"
+          v-model="newTask.category"
+          :options="[
+            { label: 'Urgente', value: 'urgent' },
+            { label: 'Importante', value: 'important' },
+          ]"
+        />
+        <button-component type="submit" @click="editTask">Salvar</button-component>
+        <button-component @click="closeEditTaskDialog">Fechar</button-component>
+      </form-wrapper>
+    </dialog-overlay>
   </section>
 </template>
 
 <script setup>
-import { onMounted, computed } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useStore } from 'vuex'
+import DialogOverlay from '@/components/DialogOverlay.vue'
 import InputComponent from '@/components/InputComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent.vue'
 import FormWrapper from '@/components/FormWrapper.vue'
@@ -72,42 +69,57 @@ let newTask = {
   title: '',
   description: '',
   completed: false,
-  category: 'low',
+  category: null,
 }
 
-let editedTask = {
-  title: '',
-  description: '',
-  completed: false,
-  category: 'low',
-}
-
-let editingTask = null
+let editingTaskIndex = null
 
 const tasks = computed(() => store.getters['tasks/getTasks'])
+
+const showAddTaskDialog = ref(false)
+const showEditTaskDialog = ref(false)
+
+const openAddTaskDialog = () => {
+  showAddTaskDialog.value = true
+}
+
+const closeAddTaskDialog = () => {
+  showAddTaskDialog.value = false
+  resetNewTask()
+}
+
+const openEditTaskDialog = () => {
+  showEditTaskDialog.value = true
+}
+
+const closeEditTaskDialog = () => {
+  showEditTaskDialog.value = false
+}
 
 const addTask = () => {
   if (newTask.title.trim() !== '') {
     store.dispatch('tasks/addTask', { ...newTask })
     resetNewTask()
+    closeAddTaskDialog()
   }
 }
 
-const editTask = (index) => {
-  editingTask = index
-  editedTask = { ...tasks[index] }
-}
-
-const saveEditedTask = () => {
-  if (editedTask.title.trim() !== '') {
-    store.dispatch('tasks/editTask', { index: editingTask, task: { ...editedTask } })
-    resetEditingTask()
+const editTask = () => {
+  if (editingTaskIndex !== null) {
+    store.dispatch('tasks/editTask', { index: editingTaskIndex, task: { ...newTask } })
+    editingTaskIndex = null
+    closeEditTaskDialog()
   }
 }
 
 const deleteTask = (index) => {
   store.dispatch('tasks/deleteTask', index)
-  resetEditingTask()
+}
+
+const editTaskDialog = (index) => {
+  editingTaskIndex = index
+  newTask = { ...tasks.value[index] }
+  openEditTaskDialog()
 }
 
 const resetNewTask = () => {
@@ -115,17 +127,7 @@ const resetNewTask = () => {
     title: '',
     description: '',
     completed: false,
-    category: 'low',
-  }
-}
-
-const resetEditingTask = () => {
-  editingTask = null
-  editedTask = {
-    title: '',
-    description: '',
-    completed: false,
-    category: 'low',
+    category: null,
   }
 }
 
@@ -133,6 +135,10 @@ onMounted(() => {
   store.dispatch('tasks/fetchTasks')
 })
 </script>
+
+<style scoped>
+/* Adicione estilos conforme necessário */
+</style>
 
 <style scoped lang="stylus">
 section
