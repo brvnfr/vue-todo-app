@@ -10,7 +10,7 @@
 
 <script setup>
 import { defineEmits } from 'vue'
-const props = defineProps(['formTitle'])
+const { formTitle } = defineProps(['formtitle'])
 const emit = defineEmits(['submit'])
 
 const handleSubmit = () => {

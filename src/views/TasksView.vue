@@ -10,14 +10,8 @@
         @update:modelValue="taskTitleModel = $event"
       />
 
-      <input-component
-        type="text"
-        custom-height="200px"
-        label="Descrição:"
-        name="taskTitle"
-        :modelValue="newTask.description"
-        @update:modelValue="newTask.description = $event"
-      />
+      <label for="taskDescription">Descrição:</label>
+      <textarea v-model="newTask.description" id="taskDescription" rows="4"></textarea>
 
       <label>
         Prioridade:

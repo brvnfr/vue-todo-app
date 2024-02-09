@@ -8,7 +8,7 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue'
 
-const props = defineProps(['type'])
+const { type } = defineProps(['type'])
 const emit = defineEmits(['click'])
 
 const handleClick = () => {
