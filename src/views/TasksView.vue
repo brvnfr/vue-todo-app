@@ -3,9 +3,15 @@
     <h1>Todo List</h1>
 
     <!-- Formulário para adicionar uma nova tarefa -->
-    <form @submit.prevent="addTask">
-      <label for="taskTitle">Título:</label>
-      <input v-model="newTask.title" type="text" id="taskTitle" required />
+    <FormWrapper :formTitle="editingTask !== null ? 'Editar Tarefa' : 'Adicionar Tarefa'">
+      <InputComponent
+        type="text"
+        customHeight="auto"
+        label="Título:"
+        name="taskTitle"
+        :modelValue="taskTitleModel"
+        @update:modelValue="taskTitleModel = $event"
+      />
 
       <label for="taskDescription">Descrição:</label>
       <textarea v-model="newTask.description" id="taskDescription" rows="4"></textarea>
@@ -23,8 +29,8 @@
         </select>
       </label>
 
-      <button type="submit">Adicionar Tarefa</button>
-    </form>
+      <ButtonComponent type="submit" @click="addTask">Adicionar Tarefa</ButtonComponent>
+    </FormWrapper>
 
     <!-- Lista de Tarefas -->
     <ul>
@@ -41,9 +47,15 @@
     <!-- Formulário para editar uma tarefa -->
     <div v-if="editingTask !== null">
       <h2>Editar Tarefa</h2>
-      <form @submit.prevent="saveEditedTask">
-        <label for="editedTaskTitle">Título:</label>
-        <input v-model="editedTask.title" type="text" id="editedTaskTitle" required />
+      <FormWrapper :formTitle="'Editar Tarefa'">
+        <InputComponent
+          type="text"
+          customHeight="auto"
+          label="Título:"
+          name="editedTaskTitle"
+          :modelValue="editedTask.title"
+          @update:modelValue="editedTask.title = $event"
+        />
 
         <label for="editedTaskDescription">Descrição:</label>
         <textarea v-model="editedTask.description" id="editedTaskDescription" rows="4"></textarea>
@@ -61,8 +73,8 @@
           </select>
         </label>
 
-        <button type="submit">Salvar</button>
-      </form>
+        <ButtonComponent type="submit" @click="saveEditedTask">Salvar</ButtonComponent>
+      </FormWrapper>
     </div>
   </section>
 </template>
@@ -70,6 +82,9 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import { useStore } from 'vuex';
+import InputComponent from '@/components/InputComponent.vue'
+import ButtonComponent from '@/components/ButtonComponent.vue'
+import FormWrapper from '@/components/FormWrapper.vue'
 
 const store = useStore();
 
@@ -89,6 +104,7 @@ const editedTask = ref({
 
 const editingTask = ref(null);
 const tasks = ref(store.state.tasks.tasks);
+const taskTitleModel = ref(newTask.value.title);
 
 const addTask = () => {
   if (newTask.value.title.trim() !== '') {
@@ -121,6 +137,7 @@ const resetNewTask = () => {
     completed: false,
     priority: 'low',
   };
+  taskTitleModel.value = newTask.value.title;
 };
 
 const resetEditingTask = () => {
@@ -141,13 +158,51 @@ watch(() => store.state.tasks.tasks, (newTasks) => {
   tasks.value = newTasks;
 });
 </script>
-
 <style scoped lang="stylus">
   section
     display flex
     flex-direction column
+    align-items center
 
   form
     display flex
     flex-direction column
+    gap 1rem
+
+    label
+      font-weight bold
+
+    div
+      display flex
+      gap 1rem
+
+  ul
+    list-style none
+    padding 0
+
+    li
+      border 1px solid #ccc
+      border-radius 8px
+      margin-top 1rem
+      padding 1rem
+      display flex
+      justify-content space-between
+      align-items center
+
+      .task-header
+        display flex
+        justify-content space-between
+        align-items center
+        width 80%
+
+      .task-status, .task-priority
+        font-weight bold
+
+  button
+    padding 0.5rem 1rem
+    background #46A3FF
+    color #fff
+    border none
+    border-radius 4px
+    cursor pointer
 </style>
