@@ -9,7 +9,7 @@
     </header>
     <section class="main-content">
       <main class="centered-content">
-        <form @submit.prevent="handleLogin">
+        <FormWrapper formTitle="Entre com seus dados de acesso." @submit="handleLogin">
           <div class="form-group">
             <input-component
               v-model="username"
@@ -30,8 +30,8 @@
               autocomplete="current-password"
             />
           </div>
-          <button-component type="submit" class="login-btn">Login</button-component>
-        </form>
+          <button-component type="submit" class="login-btn"> Login </button-component>
+        </FormWrapper>
       </main>
     </section>
   </div>
@@ -43,6 +43,7 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import InputComponent from '@/components/InputComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent.vue'
+import FormWrapper from '@/components/FormWrapper.vue'
 
 const store = useStore()
 const router = useRouter()
@@ -67,7 +68,6 @@ const handleLogin = async () => {
     console.error('Erro no login:', error)
   }
 }
-
 </script>
 <style lang="stylus" scoped>
 @import '../styles/variables.styl'
