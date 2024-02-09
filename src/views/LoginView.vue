@@ -9,7 +9,7 @@
     </header>
     <section class="main-content">
       <main class="centered-content">
-        <FormWrapper formTitle="Entre com seus dados de acesso." @submit="handleLogin">
+        <form-wrapper formTitle="Entre com seus dados de acesso." @submit="handleLogin">
           <div class="form-group">
             <input-component
               v-model="username"
@@ -29,7 +29,7 @@
             />
           </div>
           <button-component type="submit"> Entrar </button-component>
-        </FormWrapper>
+        </form-wrapper>
       </main>
     </section>
   </div>
@@ -86,7 +86,7 @@ const handleLogin = async () => {
   flex-direction column
   align-items center
   justify-content center
-  
+
 
 
 .header-content
@@ -95,14 +95,14 @@ const handleLogin = async () => {
   align-items flex-start
   justify-content flex-start
 
-  
+
 
   h1 {
   text-styles(48px, 300, #fff, 1)
   @media screen and (max-width: 375px) {
     text-styles(36px, 300, #fff, 1)
   }
-  } 
+  }
 
   p {
    text-styles(16px, 300, #fff, 1)

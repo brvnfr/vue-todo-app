@@ -8,18 +8,18 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { defineEmits } from 'vue'
 
-const props = defineProps(['formTitle'])
-const emit = defineEmits()
+const emit = defineEmits(['submit'])
 
 const handleSubmit = () => {
   emit('submit')
 }
 </script>
+
 <style scoped lang="stylus">
 @import '.././styles/variables.styl'
-.form-wrapper 
+.form-wrapper
   h5
     text-styles(18px, bold, brand-gray-950, 1)
     margin-bottom 36px

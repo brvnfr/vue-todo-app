@@ -3,8 +3,8 @@
     <h1>Todo List</h1>
 
     <!-- Formulário para adicionar uma nova tarefa -->
-    <FormWrapper :formTitle="editingTask !== null ? 'Editar Tarefa' : 'Adicionar Tarefa'">
-      <InputComponent
+    <form-wrapper :formTitle="editingTask !== null ? 'Editar Tarefa' : 'Adicionar Tarefa'">
+      <input-component
         type="text"
         customHeight="auto"
         label="Título:"
@@ -29,8 +29,8 @@
         </select>
       </label>
 
-      <ButtonComponent type="submit" @click="addTask">Adicionar Tarefa</ButtonComponent>
-    </FormWrapper>
+      <button-component type="submit" @click="addTask">Adicionar Tarefa</button-component>
+    </form-wrapper>
 
     <!-- Lista de Tarefas -->
     <ul>
@@ -47,8 +47,8 @@
     <!-- Formulário para editar uma tarefa -->
     <div v-if="editingTask !== null">
       <h2>Editar Tarefa</h2>
-      <FormWrapper :formTitle="'Editar Tarefa'">
-        <InputComponent
+      <form-wrapper :formTitle="'Editar Tarefa'">
+        <input-component
           type="text"
           customHeight="auto"
           label="Título:"
@@ -73,62 +73,62 @@
           </select>
         </label>
 
-        <ButtonComponent type="submit" @click="saveEditedTask">Salvar</ButtonComponent>
-      </FormWrapper>
+        <button-component type="submit" @click="saveEditedTask">Salvar</button-component>
+      </form-wrapper>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
-import { useStore } from 'vuex';
+import { ref, onMounted, watch } from 'vue'
+import { useStore } from 'vuex'
 import InputComponent from '@/components/InputComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent.vue'
 import FormWrapper from '@/components/FormWrapper.vue'
 
-const store = useStore();
+const store = useStore()
 
 const newTask = ref({
   title: '',
   description: '',
   completed: false,
   priority: 'low',
-});
+})
 
 const editedTask = ref({
   title: '',
   description: '',
   completed: false,
   priority: 'low',
-});
+})
 
-const editingTask = ref(null);
-const tasks = ref(store.state.tasks.tasks);
-const taskTitleModel = ref(newTask.value.title);
+const editingTask = ref(null)
+const tasks = ref(store.state.tasks.tasks)
+const taskTitleModel = ref(newTask.value.title)
 
 const addTask = () => {
   if (newTask.value.title.trim() !== '') {
-    store.commit('tasks/addTask', { ...newTask.value });
-    resetNewTask();
+    store.commit('tasks/addTask', { ...newTask.value })
+    resetNewTask()
   }
-};
+}
 
 const editTask = (index) => {
-  editingTask.value = index;
-  editedTask.value = { ...tasks.value[index] };
-};
+  editingTask.value = index
+  editedTask.value = { ...tasks.value[index] }
+}
 
 const saveEditedTask = () => {
   if (editedTask.value.title.trim() !== '') {
-    store.commit('tasks/editTask', { index: editingTask.value, task: { ...editedTask.value } });
-    resetEditingTask();
+    store.commit('tasks/editTask', { index: editingTask.value, task: { ...editedTask.value } })
+    resetEditingTask()
   }
-};
+}
 
 const deleteTask = (index) => {
-  store.commit('tasks/deleteTask', index);
-  resetEditingTask();
-};
+  store.commit('tasks/deleteTask', index)
+  resetEditingTask()
+}
 
 const resetNewTask = () => {
   newTask.value = {
@@ -136,73 +136,68 @@ const resetNewTask = () => {
     description: '',
     completed: false,
     priority: 'low',
-  };
-  taskTitleModel.value = newTask.value.title;
-};
+  }
+  taskTitleModel.value = newTask.value.title
+}
 
 const resetEditingTask = () => {
-  editingTask.value = null;
+  editingTask.value = null
   editedTask.value = {
     title: '',
     description: '',
     completed: false,
     priority: 'low',
-  };
-};
+  }
+}
 
 onMounted(() => {
-  store.dispatch('tasks/fetchTasks');
-});
+  store.dispatch('tasks/fetchTasks')
+})
 
-watch(() => store.state.tasks.tasks, (newTasks) => {
-  tasks.value = newTasks;
-});
+watch(
+  () => store.state.tasks.tasks,
+  (newTasks) => {
+    tasks.value = newTasks
+  },
+)
 </script>
 <style scoped lang="stylus">
-  section
-    display flex
-    flex-direction column
-    align-items center
+section
+  display flex
+  flex-direction column
+  align-items center
 
-  form
+form
+  display flex
+  flex-direction column
+  gap 1rem
+
+  label
+    font-weight bold
+
+  div
     display flex
-    flex-direction column
     gap 1rem
 
-    label
-      font-weight bold
+ul
+  list-style none
+  padding 0
 
-    div
-      display flex
-      gap 1rem
+  li
+    border 1px solid #ccc
+    border-radius 8px
+    margin-top 1rem
+    padding 1rem
+    display flex
+    justify-content space-between
+    align-items center
 
-  ul
-    list-style none
-    padding 0
-
-    li
-      border 1px solid #ccc
-      border-radius 8px
-      margin-top 1rem
-      padding 1rem
+    .task-header
       display flex
       justify-content space-between
       align-items center
+      width 80%
 
-      .task-header
-        display flex
-        justify-content space-between
-        align-items center
-        width 80%
-
-      .task-status, .task-priority
-        font-weight bold
-
-  button
-    padding 0.5rem 1rem
-    background #46A3FF
-    color #fff
-    border none
-    border-radius 4px
-    cursor pointer
+    .task-status, .task-priority
+      font-weight bold
 </style>

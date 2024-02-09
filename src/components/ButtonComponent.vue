@@ -5,10 +5,9 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { defineEmits } from 'vue'
 
-const props = defineProps(['type'])
-const emit = defineEmits()
+const emit = defineEmits(['click'])
 
 const handleClick = () => {
   if (emit) {
@@ -21,7 +20,7 @@ const handleClick = () => {
 
 <style scoped lang="stylus">
 @import '.././styles/variables.styl'
-  
+
 button
   width 100%
   background-color brand-green-500
