@@ -1,32 +1,29 @@
 <template>
   <section>
-    <h1>Todo List</h1>
-
     <!-- Formulário para adicionar uma nova tarefa -->
     <form-wrapper :formTitle="editingTask !== null ? 'Editar Tarefa' : 'Adicionar Tarefa'">
       <input-component
         type="text"
-        customHeight="auto"
         label="Título:"
         name="taskTitle"
         :modelValue="taskTitleModel"
         @update:modelValue="taskTitleModel = $event"
       />
 
-      <label for="taskDescription">Descrição:</label>
-      <textarea v-model="newTask.description" id="taskDescription" rows="4"></textarea>
-
-      <label>
-        Completa:
-        <input v-model="newTask.completed" type="checkbox" />
-      </label>
+      <input-component
+        type="text"
+        custom-height="200px"
+        label="Descrição:"
+        name="taskTitle"
+        :modelValue="newTask.description"
+        @update:modelValue="newTask.description = $event"
+      />
 
       <label>
         Prioridade:
-        <select v-model="newTask.priority">
-          <option value="high">Alta</option>
-          <option value="low">Baixa</option>
-        </select>
+        <input type="radio" v-model="newTask.category" value="high" /> Urgente
+
+        <input type="radio" v-model="newTask.category" value="low" /> Importante
       </label>
 
       <button-component type="submit" @click="addTask">Adicionar Tarefa</button-component>
@@ -39,8 +36,8 @@
         <button @click="editTask(index)">Editar</button>
         <button @click="deleteTask(index)">Excluir</button>
         <span v-if="task.completed">Completa</span>
-        <span v-if="task.priority === 'high'">Urgente</span>
-        <span v-if="task.priority === 'low'">Baixa Prioridade</span>
+        <span v-if="task.category === 'high'">Urgente</span>
+        <span v-if="task.category === 'low'">Importante</span>
       </li>
     </ul>
 
@@ -61,16 +58,9 @@
         <textarea v-model="editedTask.description" id="editedTaskDescription" rows="4"></textarea>
 
         <label>
-          Completa:
-          <input v-model="editedTask.completed" type="checkbox" />
-        </label>
-
-        <label>
           Prioridade:
-          <select v-model="editedTask.priority">
-            <option value="high">Alta</option>
-            <option value="low">Baixa</option>
-          </select>
+          <input type="radio" v-model="editedTask.category" value="high" /> Urgente
+          <input type="radio" v-model="editedTask.category" value="low" /> Importante
         </label>
 
         <button-component type="submit" @click="saveEditedTask">Salvar</button-component>
@@ -92,14 +82,14 @@ const newTask = ref({
   title: '',
   description: '',
   completed: false,
-  priority: 'low',
+  category: 'low',
 })
 
 const editedTask = ref({
   title: '',
   description: '',
   completed: false,
-  priority: 'low',
+  category: 'low',
 })
 
 const editingTask = ref(null)
@@ -135,7 +125,7 @@ const resetNewTask = () => {
     title: '',
     description: '',
     completed: false,
-    priority: 'low',
+    category: 'low',
   }
   taskTitleModel.value = newTask.value.title
 }
@@ -146,7 +136,7 @@ const resetEditingTask = () => {
     title: '',
     description: '',
     completed: false,
-    priority: 'low',
+    category: 'low',
   }
 }
 
@@ -161,6 +151,7 @@ watch(
   },
 )
 </script>
+
 <style scoped lang="stylus">
 section
   display flex
@@ -173,10 +164,9 @@ form
   gap 1rem
 
   label
-    font-weight bold
+    text-styles(16px, 300, brand-gray-950, 1)
 
   div
-    display flex
     gap 1rem
 
 ul
@@ -197,7 +187,4 @@ ul
       justify-content space-between
       align-items center
       width 80%
-
-    .task-status, .task-priority
-      font-weight bold
 </style>

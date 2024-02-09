@@ -27,7 +27,6 @@ const { type, customHeight, label, name, modelValue, autocomplete } = defineProp
 <style scoped lang="stylus">
 @import '.././styles/variables.styl'
 .form-group
-
   label
     text-styles(14px, 600, brand-gray-800, 1)
 
