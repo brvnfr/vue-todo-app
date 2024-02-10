@@ -32,5 +32,5 @@
 </template>
 
 <style lang="stylus" scoped>
-@import './styles.styl'
+@import './MainLayout.styl'
 </style>
