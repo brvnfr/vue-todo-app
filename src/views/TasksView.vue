@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <div class="tasks-filter"></div>
+  <main>
+    <div class="tasks-filter">aaaaa</div>
     <div class="tasks-content">
       <!-- Lista de Tarefas -->
       <ul>
@@ -65,7 +65,7 @@
       <!-- Usando o componente AnchorButton -->
       <anchor-button :openDialog="openAddTaskDialog" />
     </div>
-  </section>
+  </main>
 </template>
 
 <script setup>
@@ -74,9 +74,9 @@ import { useStore } from 'vuex'
 import AnchorButton from '@/components/Buttons/AnchorButton.vue'
 import DialogOverlay from '@/components/DialogOverlay.vue'
 import ButtonComponent from '@/components/Buttons/ButtonComponent.vue'
-import FormWrapper from '@/components/FormWrapper.vue'
-import TextAreaComponent from '@/components/TextAreaComponent.vue'
-import RadioListComponent from '@/components/RadioListComponent.vue'
+import FormWrapper from '@/components/Form/FormWrapper.vue'
+import TextAreaComponent from '@/components//Form/Inputs/TextAreaComponent.vue'
+import RadioListComponent from '@/components/Form/Inputs/RadioListComponent.vue'
 
 const store = useStore()
 
@@ -177,52 +177,63 @@ section
   height 100%
 
 .tasks-filter
+  width 100%
+  max-width 200px
+  background-color brand-gray-100
 .tasks-content
+    max-width: 700px;
+    width: 100%;
 
-
+  .task-card
+    width 100%
+    padding 1rem
+    border-radius 5px
+    margin-bottom 1rem
+    display flex
+    align-items center
   .task-check
-    height 32px
-    width 32px
+        height 32px
+        width 32px
 
-    input[type=checkbox] {
-      position: relative;
-      border: 2px solid white;
-      border-radius: 5px;
-      background: brand-gray-200;
-      cursor: pointer;
-      line-height: 0;
-      margin: 0 .6em 0 0;
-      outline: 0;
-      padding: 0 !important;
-      vertical-align: text-top;
-      height: 32px;
-      width: 32px;
-      -webkit-appearance: none;
-      /* Removed opacity: .5; */
-    }
+        input[type=checkbox] {
+          position: relative;
+          border: 2px solid white;
+          border-radius: 5px;
+          background: brand-gray-200;
+          cursor: pointer;
+          line-height: 0;
+          margin: 0 .6em 0 0;
+          outline: 0;
+          padding: 0 !important;
+          vertical-align: text-top;
+          height: 32px;
+          width: 32px;
+          -webkit-appearance: none;
+          /* Removed opacity: .5; */
+        }
 
-    input[type=checkbox]:hover {
-      opacity: 1;
-    }
+        input[type=checkbox]:hover {
+          opacity: 1;
+        }
 
-    input[type=checkbox]:checked {
-      background-color: brand-green-500;
-      opacity: 1;
-    }
+        input[type=checkbox]:checked {
+          background-color: brand-green-400;
+          opacity: 1;
+        }
 
-    input[type=checkbox]:before {
-      content: '';
-      position: absolute;
-      right: 50%;
-      top: 50%;
-      width: 6px;
-      height: 14px;
-      border: solid brand-gray-200;
-      border-width: 0 3px 3px 0;
-      margin: -1px -1px 0 -1px;
-      transform: rotate(45deg) translate(-50%, -50%);
-      z-index: 2;
-    }
+        input[type=checkbox]:before {
+          content: '';
+          position: absolute;
+          right: 50%;
+          top: 50%;
+          width: 6px;
+          height: 14px;
+          border: solid brand-gray-200;
+          border-width: 0 3px 3px 0;
+          margin: -1px -1px 0 -1px;
+          transform: rotate(45deg) translate(-50%, -50%);
+          z-index: 2;
+        }
 
 
 
@@ -256,6 +267,7 @@ ul
 
 
     .task-description
+      width: -webkit-fill-available;
       max-width: 250px
       overflow: hidden;
       text-overflow ellipsis

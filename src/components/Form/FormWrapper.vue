@@ -24,7 +24,7 @@ const validateForm = () => {
 </script>
 
 <style scoped lang="stylus">
-@import '.././styles/variables.styl'
+@import '../../styles/variables.styl'
 .form-wrapper
   h5
     text-styles(25px, bold, brand-gray-950, 1)

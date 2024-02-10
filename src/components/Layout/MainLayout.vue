@@ -33,9 +33,7 @@
           </div>
         </div>
       </header>
-      <main>
-        <router-view></router-view>
-      </main>
+      <router-view></router-view>
     </div>
   </div>
 </template>

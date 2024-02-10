@@ -1,37 +1,38 @@
-<!-- TextAreaComponent.vue -->
 <template>
   <div class="form-group">
     <label :for="name">{{ label }}</label>
-    <textarea
+    <input
+      :type="type"
       :id="name"
       :value="modelValue"
-      :rows="rows"
-      @input="updateModelValue"
+      :style="{ height: customHeight }"
       class="form-input"
-    ></textarea>
+      @input="$emit('update:modelValue', $event.target.value)"
+      :autocomplete="autocomplete"
+    />
   </div>
 </template>
 
 <script setup>
-const { label, name, modelValue, rows } = defineProps(['label', 'name', 'modelValue', 'rows'])
-const emit = defineEmits(['update:modelValue'])
-
-const updateModelValue = (event) => {
-  emit('update:modelValue', event.target.value)
-}
+const { type, customHeight, label, name, modelValue, autocomplete } = defineProps([
+  'type',
+  'customHeight',
+  'label',
+  'name',
+  'modelValue',
+  'autocomplete',
+])
 </script>
 
 <style scoped lang="stylus">
-@import '.././styles/variables.styl'
-
+@import '../../../styles/variables.styl'
 .form-group
   label
     text-styles(14px, 600, brand-gray-800, 1)
 
   .form-input
-    min-height 150px
     width -webkit-fill-available
-    margin 4px 0
+    margin: 4px 0;
     padding 16px
     border-radius 5px
     transition all 0.3s ease

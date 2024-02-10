@@ -40,9 +40,9 @@
 <script setup>
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import InputComponent from '@/components/InputComponent.vue'
+import InputComponent from '@/components/Form/Inputs/InputComponent.vue'
 import ButtonComponent from '@/components/Buttons/ButtonComponent.vue'
-import FormWrapper from '@/components/FormWrapper.vue'
+import FormWrapper from '@/components/Form/FormWrapper.vue'
 
 const store = useStore()
 const router = useRouter()

@@ -29,7 +29,7 @@ const updateModelValue = (value) => {
 </script>
 
 <style scoped lang="stylus">
-@import '.././styles/variables.styl'
+@import '../../../styles/variables.styl'
 
 .form-group label
   display inline-flex
