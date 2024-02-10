@@ -4,19 +4,20 @@
       <!-- Lista de Tarefas -->
       <ul>
         <li v-for="(task, index) in tasks" :key="index">
-          {{ task.title }}
-          <button @click="editTaskDialog(index)">Editar</button>
-          <button @click="deleteTask(index)">Excluir</button>
+          {{ task.description }}
           <span v-if="task.completed">Completa</span>
           <span v-if="task.category === 'urgent'">Urgente</span>
           <span v-if="task.category === 'important'">Importante</span>
+          <div>
+            <button @click="editTaskDialog(index)">Editar</button>
+            <button @click="deleteTask(index)">Excluir</button>
+          </div>
         </li>
       </ul>
 
       <!-- Diálogo para adicionar tarefa -->
       <dialog-overlay :showOverlay="showAddTaskDialog" @close="closeAddTaskDialog">
         <form-wrapper :formTitle="'Adicionar Tarefa'" @submit="addTask">
-          <input-component v-model="newTask.title" type="text" label="Título:" name="taskTitle" />
           <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
           <radio-list-component
             name="newTaskPriority"
@@ -28,9 +29,6 @@
           />
           <div class="form-buttons">
             <button-component type="submit" button-type="primary">Salvar</button-component>
-            <button-component @click="closeAddTaskDialog" button-type="danger"
-              >Fechar</button-component
-            >
           </div>
         </form-wrapper>
       </dialog-overlay>
@@ -38,7 +36,6 @@
       <!-- Diálogo para editar tarefa -->
       <dialog-overlay :showOverlay="showEditTaskDialog" @close="closeEditTaskDialog">
         <form-wrapper :formTitle="'Editar Tarefa'" @submit="editTask">
-          <input-component v-model="newTask.title" type="text" label="Título:" name="taskTitle" />
           <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
           <radio-list-component
             name="newTaskPriority"
@@ -48,8 +45,9 @@
               { label: 'Importante', value: 'important' },
             ]"
           />
-          <button-component type="submit">Salvar</button-component>
-          <button-component @click="closeEditTaskDialog">Fechar</button-component>
+          <div class="form-buttons">
+            <button-component type="submit">Salvar</button-component>
+          </div>
         </form-wrapper>
       </dialog-overlay>
 
@@ -64,7 +62,6 @@ import { onMounted, ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import AnchorButton from '@/components/AnchorButton.vue'
 import DialogOverlay from '@/components/DialogOverlay.vue'
-import InputComponent from '@/components/InputComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent.vue'
 import FormWrapper from '@/components/FormWrapper.vue'
 import TextAreaComponent from '@/components/TextAreaComponent.vue'
@@ -73,7 +70,6 @@ import RadioListComponent from '@/components/RadioListComponent.vue'
 const store = useStore()
 
 let newTask = {
-  title: '',
   description: '',
   completed: false,
   category: null,
@@ -104,7 +100,7 @@ const closeEditTaskDialog = () => {
 }
 
 const addTask = () => {
-  if (newTask.title.trim() !== '') {
+  if (newTask.description.trim() !== '') {
     store.dispatch('tasks/addTask', { ...newTask })
     resetNewTask()
     closeAddTaskDialog()
@@ -131,7 +127,6 @@ const editTaskDialog = (index) => {
 
 const resetNewTask = () => {
   newTask = {
-    title: '',
     description: '',
     completed: false,
     category: null,
@@ -161,9 +156,12 @@ section
   max-width 600px
   overflow-y auto  // Adicionando scroll quando necessário
 
-.dialog-buttons
-  display flex
-    gap 1rem
+.form-buttons
+    width 100%
+    display inline-flex
+    justify-content end
+    gap 16px
+    margin 1rem 0
 
   label
     text-styles(16px, 300, brand-gray-950, 1)

@@ -29,6 +29,7 @@ const updateModelValue = (event) => {
     text-styles(14px, 600, brand-gray-800, 1)
 
   .form-input
+    min-height 150px
     width -webkit-fill-available
     margin 4px 0
     padding 16px
