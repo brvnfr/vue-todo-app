@@ -3,15 +3,26 @@
     <div class="tasks-content">
       <!-- Lista de Tarefas -->
       <ul>
-        <li v-for="(task, index) in tasks" :key="index">
-          {{ task.description }}
+        <li v-for="(task, index) in tasks" :key="index" class="task-card">
+          <!-- {{ task.description }}
           <span v-if="task.completed">Completa</span>
           <span v-if="task.category === 'urgent'">Urgente</span>
           <span v-if="task.category === 'important'">Importante</span>
           <div>
             <button @click="editTaskDialog(index)">Editar</button>
             <button @click="deleteTask(index)">Excluir</button>
+          </div> -->
+          <div class="task-check">
+            <input v-model="task.completed" type="checkbox" :value="task.completed" />
           </div>
+
+          <div class="task-description">
+            {{ task.description }}
+          </div>
+          <div class="category-badge">
+            <span>{{ task.category }}</span>
+          </div>
+          <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
         </li>
       </ul>
 
@@ -141,6 +152,7 @@ const editTaskDialog = (index) => {
 
 const resetNewTask = () => {
   newTask = {
+    title: '',
     description: '',
     completed: false,
     category: null,
@@ -188,13 +200,23 @@ ul
   padding 0
 
   li
-    border 1px solid #ccc
-    border-radius 8px
-    margin-top 1rem
-    padding 1rem
+    box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1))
+    background-color white
+    border-radius 4px
+    margin .5rem
+    padding 1.5rem
     display flex
     justify-content space-between
-    align-items start
+    text-styles(16px, 700, brand-gray-800, 1)
+    text-align start
+
+
+    .task-description
+      max-width: 250px
+      overflow: hidden;
+      text-overflow ellipsis
+      text-align start
+
 
     .task-header
       display flex

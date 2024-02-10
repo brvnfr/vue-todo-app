@@ -50,7 +50,6 @@
 .vertical-nav
   background brand-blue-500
   color #fff
-  padding 20px
   width 120px
   position block
   display flex
@@ -62,10 +61,9 @@
     width 60px
     position absolute
     top 0
-    margin 1rem 2rem
+    margin 1rem
     @media (max-width: 768px)
       position relative
-      margin 0
       width 32px
 
   ul
@@ -76,7 +74,7 @@
     flex-direction column
 
   li
-    padding 1rem 2rem
+    padding 1rem
     border 1px solid brand-blue-400
     transition background-color .3s ease-in-out
 
