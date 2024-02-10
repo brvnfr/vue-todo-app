@@ -1,19 +1,19 @@
 <template>
   <section>
+    <div class="tasks-filter"></div>
     <div class="tasks-content">
       <!-- Lista de Tarefas -->
       <ul>
         <li v-for="(task, index) in tasks" :key="index" class="task-card">
-          <!-- {{ task.description }}
-          <span v-if="task.completed">Completa</span>
-          <span v-if="task.category === 'urgent'">Urgente</span>
-          <span v-if="task.category === 'important'">Importante</span>
-          <div>
-            <button @click="editTaskDialog(index)">Editar</button>
-            <button @click="deleteTask(index)">Excluir</button>
-          </div> -->
+          <!-- <button @click="editTaskDialog(index)">Editar</button>
+            <button @click="deleteTask(index)">Excluir</button> -->
           <div class="task-check">
-            <input v-model="task.completed" type="checkbox" :value="task.completed" />
+            <input
+              v-model="task.completed"
+              type="checkbox"
+              id="task-checkbox"
+              :value="task.completed"
+            />
           </div>
 
           <div class="task-description">
@@ -176,10 +176,55 @@ section
   width 100%
   height 100%
 
+.tasks-filter
 .tasks-content
-  width 100%
-  max-width 600px
-  overflow-y auto
+
+
+  .task-check
+    height 32px
+    width 32px
+
+    input[type=checkbox] {
+      position: relative;
+      border: 2px solid white;
+      border-radius: 5px;
+      background: brand-gray-200;
+      cursor: pointer;
+      line-height: 0;
+      margin: 0 .6em 0 0;
+      outline: 0;
+      padding: 0 !important;
+      vertical-align: text-top;
+      height: 32px;
+      width: 32px;
+      -webkit-appearance: none;
+      /* Removed opacity: .5; */
+    }
+
+    input[type=checkbox]:hover {
+      opacity: 1;
+    }
+
+    input[type=checkbox]:checked {
+      background-color: brand-green-500;
+      opacity: 1;
+    }
+
+    input[type=checkbox]:before {
+      content: '';
+      position: absolute;
+      right: 50%;
+      top: 50%;
+      width: 6px;
+      height: 14px;
+      border: solid brand-gray-200;
+      border-width: 0 3px 3px 0;
+      margin: -1px -1px 0 -1px;
+      transform: rotate(45deg) translate(-50%, -50%);
+      z-index: 2;
+    }
+
+
 
 .form-buttons
     width 100%
