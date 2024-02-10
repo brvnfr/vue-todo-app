@@ -55,8 +55,8 @@
       </dialog-overlay>
 
       <!-- Usando o componente AnchorButton -->
+      <anchor-button :openDialog="openAddTaskDialog" />
     </div>
-    <anchor-button :openDialog="openAddTaskDialog" />
   </section>
 </template>
 

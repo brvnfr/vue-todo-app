@@ -31,7 +31,11 @@ const { ref } = defineProps(['openDialog'])
 
   &:hover,
   &:focus {
-    padding: 5px;
     background-color darken(brand-green-500,10%);
   }
+
+  @media (max-width: 768px)
+    width 56px
+    height 56px
+    bottom 124px
 </style>
