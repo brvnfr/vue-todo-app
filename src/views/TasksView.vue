@@ -3,7 +3,7 @@
     <div class="tasks-filter">aaaaa</div>
     <div class="tasks-content">
       <!-- Lista de Tarefas -->
-      <ul>
+      <ul class="task-list">
         <li v-for="(task, index) in tasks" :key="index" class="task-card">
           <!-- <button @click="editTaskDialog(index)">Editar</button>
             <button @click="deleteTask(index)">Excluir</button> -->
@@ -178,11 +178,19 @@ section
 
 .tasks-filter
   width 100%
-  max-width 200px
+  height 100%
+  max-width 227px
   background-color brand-gray-100
+  box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1))
 .tasks-content
-    max-width: 700px;
-    width: 100%;
+    width: calc(100% - 227px);
+    display flex
+    justify-content center
+
+    .task-list
+      width 100%
+      max-width 700px
+      padding 2rem
 
   .task-card
     width 100%
