@@ -1,4 +1,3 @@
-<!-- Seu componente principal -->
 <template>
   <section>
     <div class="tasks-content">
@@ -160,6 +159,7 @@ section
 .tasks-content
   width 100%
   max-width 600px
+  overflow-y auto  // Adicionando scroll quando necessário
 
 .dialog-buttons
   display flex
