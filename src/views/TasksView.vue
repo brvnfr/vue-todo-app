@@ -36,11 +36,11 @@
       <!-- Diálogo para editar tarefa -->
       <dialog-overlay :showOverlay="showEditTaskDialog" @close="closeEditTaskDialog">
         <form-wrapper :formTitle="'Editar Tarefa'" @submit="editTask">
-          <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
+          <text-area-component label="Descrição:" v-model="editedTask.description" rows="4" />
           <div class="form-buttons">
             <radio-list-component
-              name="newTaskPriority"
-              v-model="newTask.category"
+              name="editedTaskPriority"
+              v-model="editedTask.category"
               :options="[
                 { label: 'Urgente', value: 'urgent' },
                 { label: 'Importante', value: 'important' },
@@ -70,6 +70,12 @@ import RadioListComponent from '@/components/RadioListComponent.vue'
 const store = useStore()
 
 let newTask = {
+  description: '',
+  completed: false,
+  category: null,
+}
+
+let editedTask = {
   description: '',
   completed: false,
   category: null,
@@ -109,7 +115,7 @@ const addTask = () => {
 
 const editTask = () => {
   if (editingTaskIndex !== null) {
-    store.dispatch('tasks/editTask', { index: editingTaskIndex, task: { ...newTask } })
+    store.dispatch('tasks/editTask', { index: editingTaskIndex, task: { ...editedTask } })
     editingTaskIndex = null
     closeEditTaskDialog()
   }
@@ -121,7 +127,7 @@ const deleteTask = (index) => {
 
 const editTaskDialog = (index) => {
   editingTaskIndex = index
-  newTask = { ...tasks.value[index] }
+  editedTask = { ...tasks.value[index] }
   openEditTaskDialog()
 }
 
