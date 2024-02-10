@@ -1,19 +1,19 @@
-<!-- RadioListComponent.vue -->
 <template>
   <div class="form-group">
     <label>{{ label }}</label>
-    <div>
-      <label v-for="(option, index) in options" :key="index">
-        <input
-          type="radio"
-          :name="name"
-          :value="option.value"
-          v-model="selectedValue"
-          @change="updateModelValue"
-        />
+
+    <label v-for="(option, index) in options" :key="index">
+      <input
+        type="radio"
+        :name="name"
+        :value="option.value"
+        v-model="selectedValue"
+        @change="updateModelValue"
+      />
+      <span>
         {{ option.label }}
-      </label>
-    </div>
+      </span>
+    </label>
   </div>
 </template>
 
@@ -33,6 +33,18 @@ const updateModelValue = () => {
 <style scoped lang="stylus">
 @import '.././styles/variables.styl'
 
+
 .form-group label
- text-styles(14px, 600, brand-gray-800, 1);
+  display inline-flex
+  align-items center
+  text-styles(14px, 600, brand-gray-800, 1);
+input[type="radio"]
+  margin-left 8px
+  height 25px
+  width 25px
+  outline 2px auto brand-gray-300
+  &:checked,&:focus
+    outline 2px auto brand-blue-500
+span
+  margin-left .5rem
 </style>

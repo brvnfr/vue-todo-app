@@ -37,7 +37,7 @@ const buttonClass = {
 .button
   border-radius 5px
   border none
-  padding 1rem 2rem
+  padding 1rem
   cursor pointer
   transition all .5s ease
   text-styles(16px, bold, #fff, 1)

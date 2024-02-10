@@ -32,7 +32,7 @@ export default {
   left 0
   width 100%
   height 100%
-  background rgba(0, 0, 0, 0.5)
+  background rgba(70, 93, 118, 0.6)
   display flex
   align-items center
   justify-content center
@@ -43,7 +43,7 @@ export default {
   background #fff
   width 100%
   max-width 650px
-  padding 2rem
+  padding 2rem 2.5rem
   border-radius 8px
   position relative
 
@@ -52,7 +52,7 @@ export default {
   position absolute
   top 1rem
   right 1rem
-  font-size 20px
+  font-size 25px
   cursor pointer
   border none
   background none

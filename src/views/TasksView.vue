@@ -19,16 +19,16 @@
       <dialog-overlay :showOverlay="showAddTaskDialog" @close="closeAddTaskDialog">
         <form-wrapper :formTitle="'Adicionar Tarefa'" @submit="addTask">
           <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
-          <radio-list-component
-            name="newTaskPriority"
-            v-model="newTask.category"
-            :options="[
-              { label: 'Urgente', value: 'urgent' },
-              { label: 'Importante', value: 'important' },
-            ]"
-          />
           <div class="form-buttons">
-            <button-component type="submit" button-type="primary">Salvar</button-component>
+            <radio-list-component
+              name="newTaskPriority"
+              v-model="newTask.category"
+              :options="[
+                { label: 'Urgente', value: 'urgent' },
+                { label: 'Importante', value: 'important' },
+              ]"
+            />
+            <button-component type="submit" button-type="primary">Adicionar</button-component>
           </div>
         </form-wrapper>
       </dialog-overlay>
@@ -37,16 +37,16 @@
       <dialog-overlay :showOverlay="showEditTaskDialog" @close="closeEditTaskDialog">
         <form-wrapper :formTitle="'Editar Tarefa'" @submit="editTask">
           <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
-          <radio-list-component
-            name="newTaskPriority"
-            v-model="newTask.category"
-            :options="[
-              { label: 'Urgente', value: 'urgent' },
-              { label: 'Importante', value: 'important' },
-            ]"
-          />
           <div class="form-buttons">
-            <button-component type="submit">Salvar</button-component>
+            <radio-list-component
+              name="newTaskPriority"
+              v-model="newTask.category"
+              :options="[
+                { label: 'Urgente', value: 'urgent' },
+                { label: 'Importante', value: 'important' },
+              ]"
+            />
+            <button-component type="submit" button-type="primary">Salvar</button-component>
           </div>
         </form-wrapper>
       </dialog-overlay>
@@ -159,7 +159,7 @@ section
 .form-buttons
     width 100%
     display inline-flex
-    justify-content end
+    justify-content space-between
     gap 16px
     margin 1rem 0
 
@@ -180,7 +180,7 @@ ul
     padding 1rem
     display flex
     justify-content space-between
-    align-items center
+    align-items start
 
     .task-header
       display flex
