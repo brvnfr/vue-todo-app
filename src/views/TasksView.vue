@@ -1,55 +1,62 @@
 <template>
   <section>
+    <div class="tasks-content">
+      <button @click="openAddTaskDialog">Adicionar Tarefa</button>
+
+      <!-- Lista de Tarefas -->
+      <ul>
+        <li v-for="(task, index) in tasks" :key="index">
+          {{ task.title }}
+          <button @click="editTaskDialog(index)">Editar</button>
+          <button @click="deleteTask(index)">Excluir</button>
+          <span v-if="task.completed">Completa</span>
+          <span v-if="task.category === 'urgent'">Urgente</span>
+          <span v-if="task.category === 'important'">Importante</span>
+        </li>
+      </ul>
+
+      <!-- Diálogo para adicionar tarefa -->
+      <dialog-overlay :showOverlay="showAddTaskDialog" @close="closeAddTaskDialog">
+        <form-wrapper :formTitle="'Adicionar Tarefa'" @submit="addTask">
+          <input-component v-model="newTask.title" type="text" label="Título:" name="taskTitle" />
+          <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
+          <radio-list-component
+            name="newTaskPriority"
+            v-model="newTask.category"
+            :options="[
+              { label: 'Urgente', value: 'urgent' },
+              { label: 'Importante', value: 'important' },
+            ]"
+          />
+          <button-component type="submit" button-type="primary">Salvar</button-component>
+          <button-component @click="closeAddTaskDialog" button-type="danger"
+            >Fechar</button-component
+          >
+        </form-wrapper>
+      </dialog-overlay>
+
+      <!-- Diálogo para editar tarefa -->
+      <dialog-overlay :showOverlay="showEditTaskDialog" @close="closeEditTaskDialog">
+        <form-wrapper :formTitle="'Editar Tarefa'" @submit="editTask">
+          <input-component v-model="newTask.title" type="text" label="Título:" name="taskTitle" />
+          <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
+          <radio-list-component
+            name="newTaskPriority"
+            v-model="newTask.category"
+            :options="[
+              { label: 'Urgente', value: 'urgent' },
+              { label: 'Importante', value: 'important' },
+            ]"
+          />
+          <button-component type="submit">Salvar</button-component>
+          <button-component @click="closeEditTaskDialog">Fechar</button-component>
+        </form-wrapper>
+      </dialog-overlay>
+    </div>
     <!-- Botão para abrir o diálogo de adicionar tarefa -->
-    <button @click="openAddTaskDialog">Adicionar Tarefa</button>
-
-    <!-- Lista de Tarefas -->
-    <ul>
-      <li v-for="(task, index) in tasks" :key="index">
-        {{ task.title }}
-        <button @click="editTaskDialog(index)">Editar</button>
-        <button @click="deleteTask(index)">Excluir</button>
-        <span v-if="task.completed">Completa</span>
-        <span v-if="task.category === 'urgent'">Urgente</span>
-        <span v-if="task.category === 'important'">Importante</span>
-      </li>
-    </ul>
-
-    <!-- Diálogo para adicionar tarefa -->
-    <dialog-overlay :showOverlay="showAddTaskDialog" @close="closeAddTaskDialog">
-      <form-wrapper :formTitle="'Adicionar Tarefa'" @submit="addTask">
-        <input-component v-model="newTask.title" type="text" label="Título:" name="taskTitle" />
-        <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
-        <radio-list-component
-          name="newTaskPriority"
-          v-model="newTask.category"
-          :options="[
-            { label: 'Urgente', value: 'urgent' },
-            { label: 'Importante', value: 'important' },
-          ]"
-        />
-        <button-component type="submit">Salvar</button-component>
-        <button-component @click="closeAddTaskDialog">Fechar</button-component>
-      </form-wrapper>
-    </dialog-overlay>
-
-    <!-- Diálogo para editar tarefa -->
-    <dialog-overlay :showOverlay="showEditTaskDialog" @close="closeEditTaskDialog">
-      <form-wrapper :formTitle="'Editar Tarefa'" @submit="editTask">
-        <input-component v-model="newTask.title" type="text" label="Título:" name="taskTitle" />
-        <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
-        <radio-list-component
-          name="newTaskPriority"
-          v-model="newTask.category"
-          :options="[
-            { label: 'Urgente', value: 'urgent' },
-            { label: 'Importante', value: 'important' },
-          ]"
-        />
-        <button-component type="submit">Salvar</button-component>
-        <button-component @click="closeEditTaskDialog">Fechar</button-component>
-      </form-wrapper>
-    </dialog-overlay>
+    <button @click="openAddTaskDialog" class="add-button">
+      <font-awesome-icon :icon="['fas', 'plus']" />
+    </button>
   </section>
 </template>
 
@@ -141,10 +148,38 @@ onMounted(() => {
 </style>
 
 <style scoped lang="stylus">
+@import '../styles/variables.styl'
+
+.add-button
+    position fixed
+    bottom 24px
+    right 24px
+    width 77px
+    height 77px
+    border none
+    border-radius 50%
+    background-color brand-green-500
+    color #fff
+    font-size 32px
+    align-items center
+    justify-content center
+     cursor pointer
+
+
 section
   display flex
   flex-direction column
   align-items center
+  justify-content center
+  flex-direction column
+  width 100%
+  height 100%
+  padding 0 1rem
+
+.tasks-content
+  width 100%
+  max-width 600px
+
 
 form
   display flex

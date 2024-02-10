@@ -28,7 +28,7 @@
               autocomplete="current-password"
             />
           </div>
-          <button-component type="submit"> Entrar </button-component>
+          <button-component type="submit" :full-width="true"> Entrar </button-component>
         </form-wrapper>
       </main>
     </section>

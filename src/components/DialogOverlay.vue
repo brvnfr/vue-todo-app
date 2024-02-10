@@ -36,20 +36,23 @@ export default {
   display flex
   align-items center
   justify-content center
+  z-index 1000
 
 
 .dialog-content
   background #fff
-  padding 20px
+  width 100%
+  max-width 650px
+  padding 2rem
   border-radius 8px
   position relative
 
 
 .close-button
   position absolute
-  top 10px
-  right 10px
-  font-size 18px
+  top 1rem
+  right 1rem
+  font-size 20px
   cursor pointer
   border none
   background none
