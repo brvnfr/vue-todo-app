@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/',
     redirect: '/tasks',
-    component: () => import('@/components/MainLayout.vue'),
+    component: () => import('@/components/Layout/MainLayout.vue'),
     meta: { requiresAuth: true },
     children: [
       {

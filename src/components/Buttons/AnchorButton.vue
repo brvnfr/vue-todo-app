@@ -9,7 +9,7 @@ const { ref } = defineProps(['openDialog'])
 </script>
 
 <style scoped lang="stylus">
-@import '../styles/variables.styl'
+@import '../.././styles/variables.styl'
 
 .anchor-button
   position fixed

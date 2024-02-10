@@ -71,9 +71,9 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue'
 import { useStore } from 'vuex'
-import AnchorButton from '@/components/AnchorButton.vue'
+import AnchorButton from '@/components/Buttons/AnchorButton.vue'
 import DialogOverlay from '@/components/DialogOverlay.vue'
-import ButtonComponent from '@/components/ButtonComponent.vue'
+import ButtonComponent from '@/components/Buttons/ButtonComponent.vue'
 import FormWrapper from '@/components/FormWrapper.vue'
 import TextAreaComponent from '@/components/TextAreaComponent.vue'
 import RadioListComponent from '@/components/RadioListComponent.vue'

@@ -41,7 +41,7 @@
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import InputComponent from '@/components/InputComponent.vue'
-import ButtonComponent from '@/components/ButtonComponent.vue'
+import ButtonComponent from '@/components/Buttons/ButtonComponent.vue'
 import FormWrapper from '@/components/FormWrapper.vue'
 
 const store = useStore()
