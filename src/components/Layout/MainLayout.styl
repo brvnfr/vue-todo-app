@@ -25,13 +25,13 @@
 
   ul
     list-style none
+    width 100%
     padding 0
     margin 0
     display flex
     flex-direction column
 
   li
-    padding 1rem
     border 1px solid brand-blue-400
     transition background-color .3s ease-in-out
 
@@ -45,9 +45,11 @@
     flex-direction column
     align-items center
     gap .5rem
-    margin 1rem 0
-    text-styles(12px, 600, #fff, 1px)
-
+    margin 1rem 
+    text-styles(12px, 600, #fff, 0)
+    @media (max-width: 768px)
+      margin 0
+      
   span
     text-align center
     font-size 12px
@@ -58,7 +60,7 @@
     position fixed
     bottom 0
     width 100%
-    height 60px
+    height 65px
     flex-direction row
 
     ul
