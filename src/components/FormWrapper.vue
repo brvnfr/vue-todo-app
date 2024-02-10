@@ -13,7 +13,6 @@ const { formTitle } = defineProps(['formTitle'])
 const emit = defineEmits(['submit'])
 
 const handleSubmit = () => {
-  // Adicione aqui a lógica de validação antes de emitir o evento de envio
   if (validateForm()) {
     emit('submit')
   }

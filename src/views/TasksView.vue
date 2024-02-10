@@ -1,8 +1,7 @@
+<!-- Seu componente principal -->
 <template>
   <section>
     <div class="tasks-content">
-      <button @click="openAddTaskDialog">Adicionar Tarefa</button>
-
       <!-- Lista de Tarefas -->
       <ul>
         <li v-for="(task, index) in tasks" :key="index">
@@ -28,10 +27,12 @@
               { label: 'Importante', value: 'important' },
             ]"
           />
-          <button-component type="submit" button-type="primary">Salvar</button-component>
-          <button-component @click="closeAddTaskDialog" button-type="danger"
-            >Fechar</button-component
-          >
+          <div class="form-buttons">
+            <button-component type="submit" button-type="primary">Salvar</button-component>
+            <button-component @click="closeAddTaskDialog" button-type="danger"
+              >Fechar</button-component
+            >
+          </div>
         </form-wrapper>
       </dialog-overlay>
 
@@ -52,17 +53,17 @@
           <button-component @click="closeEditTaskDialog">Fechar</button-component>
         </form-wrapper>
       </dialog-overlay>
+
+      <!-- Usando o componente AnchorButton -->
     </div>
-    <!-- Botão para abrir o diálogo de adicionar tarefa -->
-    <button @click="openAddTaskDialog" class="add-button">
-      <font-awesome-icon :icon="['fas', 'plus']" />
-    </button>
+    <anchor-button :openDialog="openAddTaskDialog" />
   </section>
 </template>
 
 <script setup>
 import { onMounted, ref, computed } from 'vue'
 import { useStore } from 'vuex'
+import AnchorButton from '@/components/AnchorButton.vue'
 import DialogOverlay from '@/components/DialogOverlay.vue'
 import InputComponent from '@/components/InputComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent.vue'
@@ -143,28 +144,8 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
-/* Adicione estilos conforme necessário */
-</style>
-
 <style scoped lang="stylus">
 @import '../styles/variables.styl'
-
-.add-button
-    position fixed
-    bottom 24px
-    right 24px
-    width 77px
-    height 77px
-    border none
-    border-radius 50%
-    background-color brand-green-500
-    color #fff
-    font-size 32px
-    align-items center
-    justify-content center
-     cursor pointer
-
 
 section
   display flex
@@ -180,11 +161,9 @@ section
   width 100%
   max-width 600px
 
-
-form
+.dialog-buttons
   display flex
-  flex-direction column
-  gap 1rem
+    gap 1rem
 
   label
     text-styles(16px, 300, brand-gray-950, 1)
