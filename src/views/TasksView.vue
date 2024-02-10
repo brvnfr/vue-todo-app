@@ -106,18 +106,26 @@ const closeEditTaskDialog = () => {
 }
 
 const addTask = () => {
-  if (newTask.description.trim() !== '') {
+  if (newTask.description.trim() !== '' && newTask.category !== null) {
     store.dispatch('tasks/addTask', { ...newTask })
     resetNewTask()
     closeAddTaskDialog()
+  } else {
+    console.error('Por favor, preencha todos os campos obrigatórios.')
   }
 }
 
 const editTask = () => {
-  if (editingTaskIndex !== null) {
+  if (
+    editingTaskIndex !== null &&
+    editedTask.description.trim() !== '' &&
+    editedTask.category !== null
+  ) {
     store.dispatch('tasks/editTask', { index: editingTaskIndex, task: { ...editedTask } })
     editingTaskIndex = null
     closeEditTaskDialog()
+  } else {
+    console.error('Por favor, preencha todos os campos obrigatórios.')
   }
 }
 
@@ -160,7 +168,7 @@ section
 .tasks-content
   width 100%
   max-width 600px
-  overflow-y auto  // Adicionando scroll quando necessário
+  overflow-y auto
 
 .form-buttons
     width 100%
