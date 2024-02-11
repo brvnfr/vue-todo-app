@@ -81,6 +81,7 @@
       <!-- Diálogo para editar tarefa -->
       <dialog-overlay :showOverlay="showEditTaskDialog" @close="closeEditTaskDialog">
         <form-wrapper :formTitle="'Editar Tarefa'" @submit="editTask">
+          <input-component v-model="editedTask.title" type="text" label="Titulo:" name="title" />
           <text-area-component label="Descrição:" v-model="editedTask.description" rows="4" />
           <div class="form-buttons">
             <radio-list-component
@@ -210,7 +211,7 @@ onMounted(() => {
 </script>
 
 <style scoped lang="stylus">
-@import '../styles/variables.styl'
+@import '../../styles/variables.styl'
 
 .tasks-page
   background-color brand-gray-150

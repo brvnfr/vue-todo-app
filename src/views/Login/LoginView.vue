@@ -69,7 +69,7 @@ const handleLogin = async () => {
 }
 </script>
 <style lang="stylus" scoped>
-@import '../styles/variables.styl'
+@import '../../styles/variables.styl'
 
 .app-layout
   display flex

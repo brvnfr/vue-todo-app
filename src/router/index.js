@@ -16,19 +16,19 @@ const routes = [
       {
         path: '/dashboard',
         name: 'dashboard',
-        component: () => import('@/views/DashboardView.vue'),
+        component: () => import('@/views/Dashboard/DashboardView.vue'),
         meta: { requiresAuth: true },
       },
       {
         path: '/tasks',
         name: 'tasks',
-        component: () => import('@/views/TasksView.vue'),
+        component: () => import('@/views/Tasks/TasksView.vue'),
         meta: { requiresAuth: true },
       },
       {
         path: '/settings',
         name: 'settings',
-        component: () => import('@/views/SettingsView.vue'),
+        component: () => import('@/views/Settings/SettingsView.vue'),
         meta: { requiresAuth: true },
       },
     ],
@@ -36,7 +36,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/LoginView.vue'),
+    component: () => import('@/views/Login/LoginView.vue'),
   },
 ]
 
