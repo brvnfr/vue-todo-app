@@ -42,32 +42,32 @@ const buttonClass = {
   text-styles(16px, bold, #fff, 1)
   background-color brand-blue-500
   &:hover
-   background-color  darken(brand-blue-500, 10%)
+   background-color darken(brand-blue-500, 10%)
 
 
 .primary
   background-color brand-green-500
   color white
   &:hover
-   background-color  darken(brand-green-500, 10%)
+   background-color darken(brand-green-500, 10%)
 
 .warning
   background-color brand-yellow-500
   color white
   &:hover
-   background-color  darken(brand-yellow-500, 10%)
+   background-color darken(brand-yellow-500, 10%)
 
 .danger
   background-color brand-red-500
   color white
   &:hover
-   background-color  darken(brand-red-500, 10%)
+   background-color darken(brand-red-500, 10%)
 
 .info
   background-color brand-gray-500
   color white
   &:hover
-   background-color  darken(brand-gray-500, 10%)
+   background-color darken(brand-gray-500, 10%)
 
 .disabled
   background-color brand-gray-500

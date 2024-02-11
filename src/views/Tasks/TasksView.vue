@@ -296,7 +296,7 @@ label
       svg
         width 67px
         height 67px
-        color brand-gray-850
+        color brand-gray-0
 
   .dialog-buttons
     width 100%
