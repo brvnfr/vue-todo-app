@@ -196,6 +196,7 @@ const addTask = () => {
     store.dispatch('tasks/addTask', { ...newTask })
     resetNewTask()
     closeAddTaskDialog()
+    store.dispatch('tasks/fetchTasks')
   } else {
     console.error('Por favor, preencha todos os campos obrigatórios.')
   }
@@ -210,6 +211,7 @@ const editTask = () => {
     store.dispatch('tasks/editTask', { index: editingTaskIndex, task: { ...editedTask } })
     editingTaskIndex = null
     closeEditTaskDialog()
+    store.dispatch('tasks/fetchTasks')
   } else {
     console.error('Por favor, preencha todos os campos obrigatórios.')
   }

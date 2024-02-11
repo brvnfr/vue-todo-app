@@ -44,14 +44,18 @@ export default {
     localStorage.setItem('tasks', JSON.stringify(state.tasks))
   },
 
-  editTask({ commit, state }, { index, task }) {
-    commit('editTask', { index, task })
-    localStorage.setItem('tasks', JSON.stringify(state.tasks))
-  },
+  editTask({ commit }, { task }) {
+    console.log('id vindo do formulario:', task)
+    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || []
+    console.log('array de tasks no localStorage', savedTasks)
 
-  deleteTask({ commit, state }, index) {
-    commit('deleteTask', index)
-    localStorage.setItem('tasks', JSON.stringify(state.tasks))
+    // clona as tarefas
+    const updatedTasks = savedTasks.map((t) => (t.id === task.id ? { ...t, ...task } : t))
+    console.log('updatedTasks criado na action', updatedTasks)
+
+    //~ Atualiza o localStorage com as tarefas atualizadas
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks))
+    commit('setTasks', updatedTasks)
   },
 
   updateFilter({ commit }, filter) {

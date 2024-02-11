@@ -4,11 +4,25 @@ const mutations = {
   },
 
   addTask(state, task) {
+    // Gere um ID único
+    const taskId = Math.floor(Math.random() * 1000)
+    task.id = taskId
+
     state.tasks.push(task)
   },
 
-  editTask(state, { index, task }) {
-    state.tasks[index] = task
+  editTask(state, updatedTask) {
+    const updatedTasks = state.tasks.map((task) => {
+      if (task.id === updatedTask.id) {
+        return { ...task, ...updatedTask }
+      }
+      return task
+    })
+
+    console.log('updatedTasks chegando na mutation', updatedTasks)
+    state.tasks = updatedTasks
+
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks))
   },
 
   deleteTask(state, index) {
