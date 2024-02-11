@@ -59,6 +59,10 @@ svg
   &:focus-within, &:hover
     + svg
       color brand-blue-500
+
+  &::placeholder
+    text-styles(14px, 600, brand-gray-300, 1)
+
 svg
   height 25px
   width 25px
