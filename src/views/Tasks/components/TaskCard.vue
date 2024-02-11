@@ -49,18 +49,17 @@ const toggleDropdown = () => {
 
 const emitEditTask = () => {
   toggleDropdown()
-  emits.editTask(props.index)
+  emits('editTask', props.index)
 }
 
 const emitDeleteTask = () => {
   toggleDropdown()
-  emits.deleteTask(props.index)
+  emits('deleteTask', props.index)
 }
 </script>
 
 <style scoped lang="stylus">
 @import '../../../styles/variables.styl'
-// TASKCARD ------------------------------------------------------------
 .task-title, .category-badge
   display inline-flex
   align-items center
@@ -97,7 +96,6 @@ const emitDeleteTask = () => {
     align-items center
     width 80%
 
-  // CHECKBOX -----------------------------------
   .task-check
     height 32px
     width 32px
@@ -137,7 +135,6 @@ const emitDeleteTask = () => {
         transform rotate(45deg)
         translate(-50%, -50%)
         z-index 2
-  //----------------------------------------------
   .dropdown
     position relative
     cursor pointer
@@ -190,5 +187,4 @@ const emitDeleteTask = () => {
         right 8px
         color brand-blue-500
         cursor pointer
-//-------------------------------------------------------------------
 </style>

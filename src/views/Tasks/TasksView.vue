@@ -29,7 +29,7 @@
           :task="task"
           :index="index"
           @editTask="openEditTaskDialog"
-          @deleteTask="deleteTask"
+          @deleteTask="openDeleteTaskDialog"
         />
       </ul>
 
@@ -73,6 +73,13 @@
 
       <!-- Botão Flutuante/Ancorado -->
       <anchor-button :openDialog="openAddTaskDialog" />
+
+      <!-- Diálogo para excluir tarefa -->
+      <dialog-overlay :showOverlay="showDeleteTaskDialog" @close="closeDeleteTaskDialog">
+        <!-- Adicione aqui o conteúdo do modal de exclusão -->
+        <p>Tem certeza que deseja excluir esta tarefa?</p>
+        <button @click="deleteTask">Confirmar</button>
+      </dialog-overlay>
     </div>
   </main>
 </template>
@@ -114,11 +121,13 @@ let editedTask = {
 }
 
 let editingTaskIndex = null
+let deletingTaskIndex = null
 
 const tasks = computed(() => store.getters['tasks/getTasks'])
 
 const showAddTaskDialog = ref(false)
 const showEditTaskDialog = ref(false)
+const showDeleteTaskDialog = ref(false)
 
 const openAddTaskDialog = () => {
   showAddTaskDialog.value = true
@@ -129,12 +138,22 @@ const closeAddTaskDialog = () => {
   resetNewTask()
 }
 
-const openEditTaskDialog = () => {
+const openEditTaskDialog = (index) => {
+  editingTaskIndex = index
   showEditTaskDialog.value = true
 }
 
 const closeEditTaskDialog = () => {
   showEditTaskDialog.value = false
+}
+
+const openDeleteTaskDialog = (index) => {
+  deletingTaskIndex = index
+  showDeleteTaskDialog.value = true
+}
+
+const closeDeleteTaskDialog = () => {
+  showDeleteTaskDialog.value = false
 }
 
 const addTask = () => {
@@ -161,8 +180,13 @@ const editTask = () => {
   }
 }
 
-const deleteTask = (index) => {
-  store.dispatch('tasks/deleteTask', index)
+const deleteTask = () => {
+  // Implemente a lógica para excluir a tarefa usando deletingTaskIndex
+  store.dispatch('tasks/deleteTask', deletingTaskIndex)
+  // ...
+
+  // Feche o modal após a exclusão
+  closeDeleteTaskDialog()
 }
 
 const editTaskDialog = (index) => {
@@ -234,7 +258,6 @@ onMounted(() => {
 .task-title, .category-badge
   display inline-flex
   align-items center
-
 
 .form-buttons
   width 100%
