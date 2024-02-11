@@ -25,16 +25,12 @@
     <div class="tasks-content">
       <!-- Barra de Busca -->
       <div class="task-search">
-        <!-- <h2>Minhas Tarefas</h2>
+        <h2>Minhas Tarefas</h2>
         <span
           >Olá <span>Eduardo</span>,
-          <span v-if="incompleteTasks.length > 0">
-            você tem
-            <router-link to="/tasks/incomplete">{{ incompleteTasks.length }} tarefas</router-link>
-            pendentes
-          </span>
-          <span v-if="incompleteTasks.length < 1">você não tem tarefas pendentes.</span>
-        </span> -->
+          <span> você tem tarefas pendentes </span>
+          <span>você não tem tarefas pendentes</span>
+        </span>
         <input-component
           v-model="newTaskFilter"
           type="text"
@@ -44,18 +40,20 @@
           @input="handleSearch"
         />
       </div>
-      <!-- Lista de Tarefas -->
-      <ul class="task-list">
-        <task-card
-          v-for="(task, index) in tasks"
-          :key="index"
-          :task="task"
-          :index="index"
-          @editTask="editTaskDialog"
-          @deleteTask="openDeleteTaskDialog"
-          @set-task-completed="setTaskComplete"
-        />
-      </ul>
+      <div class="task-list">
+        <!-- Lista de Tarefas -->
+        <ul>
+          <task-card
+            v-for="(task, index) in tasks"
+            :key="index"
+            :task="task"
+            :index="index"
+            @editTask="editTaskDialog"
+            @deleteTask="openDeleteTaskDialog"
+            @set-task-completed="setTaskComplete"
+          />
+        </ul>
+      </div>
 
       <!-- Diálogo para adicionar tarefa -->
       <dialog-overlay :showOverlay="showAddTaskDialog" @close="closeAddTaskDialog">
@@ -223,8 +221,9 @@ const deleteTask = () => {
   closeDeleteTaskDialog()
 }
 
-const setTaskComplete = (index) => {
-  store.dispatch('tasks/setTaskCompleted', index)
+const setTaskComplete = (task) => {
+  console.log('dados vindo do checkbox da tarefa', task)
+  store.dispatch('tasks/setTaskCompleted', task)
 }
 
 const editTaskDialog = (index) => {
@@ -265,148 +264,5 @@ onMounted(() => {
 </script>
 
 <style scoped lang="stylus">
-@import '../../styles/variables.styl'
-
-.tasks-page
-  background-color brand-gray-150
-  width 100%
-  height calc(100vh - 82px)
-  display flex
-  justify-content start
-  align-items center
-
-  @media (max-width: 1024px)
-    flex-direction column
-
-.tasks-filter
-  display flex
-  flex-direction column
-  gap 4rem
-  align-items center
-  justify-content center
-  width 100%
-  height 100%
-  max-width 227px
-  background-color brand-gray-100
-  overflow hidden
-  box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1))
-  text-styles(14px, bold, brand-gray-800, 1)
-
-  h2
-    color brand-gray-950
-    @media (max-width: 1024px)
-      display none
-  @media (max-width: 1024px)
-    height 112px
-    max-width 100%
-
-  .tasks-filter
-  .filter-list
-    width 70%
-    display flex
-    justify-content center
-    align items center
-    flex-direction column
-    list-style-type none
-    padding 0
-    margin 0
-    svg
-      margin-right 8px
-
-    @media (max-width: 1024px)
-      flex-direction row
-      flex-wrap wrap
-
-    li
-      cursor pointer
-      padding 8px
-      margin 10px 0
-      border-radius 5px
-      background-color brand-gray-100
-      transition background-color 0.3s
-      transition all .3s ease
-
-      .urgent-dot
-        padding 4px 7px
-        background-color brand-red-500
-        border-radius 100%
-        text-styles(11px, 700, white, 1)
-
-      .important-dot
-        padding 4px 7px
-        background-color brand-yellow-500
-        border-radius 100%
-        text-styles(11px, 700, white, 1)
-
-
-      @media (max-width: 425px)
-        margin 0
-
-
-      &:hover
-        color brand-blue-500
-
-.tasks-content
-  width calc(100% - 227px)
-  display flex
-  flex-direction column
-  justify-content center
-  align-items center
-  height calc(100% - 112px)
-  overflow auto
-
-  @media (max-width: 1024px)
-    width 100%
-
-  .task-search, .task-list
-    min-width 300px
-    width: 90%
-    max-width 700px
-    max-height 420px
-
-    @media (max-width: 375px)
-      width 300px
-
-.task-title, .category-badge
-  display inline-flex
-  align-items center
-
-.form-buttons
-  width 100%
-  display inline-flex
-  justify-content space-between
-  gap 16px
-  margin 1rem 0
-
-label
-  text-styles(16px, 300, brand-gray-950, 1)
-
-.delete-dialog-content
-  display flex
-  flex-direction column
-  justify-content center
-  align-items center
-  gap 1rem
-  .delete-ilustration
-      display flex
-      align-items center
-      justify-content center
-      padding 2rem
-      background-color brand-gray-200
-      border-radius 50%
-
-      svg
-        width 67px
-        height 67px
-        color brand-gray-0
-
-  .dialog-buttons
-    width 100%
-    display inline-flex
-    justify-content center
-    gap 16px
-    margin 1rem 0
-
-.dialog-form
-  width 100%
+@import './TasksView.styl'
 </style>
