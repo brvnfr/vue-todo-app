@@ -214,6 +214,7 @@ onMounted(() => {
   overflow auto
   @media (max-width: 1024px)
     width 100%
+
   .task-search, .task-list
     min-width 300px
     width: 90%;

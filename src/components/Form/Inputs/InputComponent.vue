@@ -44,9 +44,10 @@ const { type, customHeight, label, placeholder, name, modelValue, autocomplete, 
 svg
   color brand-gray-300
 .form-input
+  background none
   width -webkit-fill-available
   margin: 4px 0;
-  padding 16px
+  padding 1.5rem 1rem
   border-radius 5px
   transition all 0.3s ease
   border 2px solid brand-gray-300
