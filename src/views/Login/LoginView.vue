@@ -9,12 +9,11 @@
     </header>
     <section class="main-content">
       <main class="centered-content">
-        <FormWrapper formTitle="Entre com seus dados de acesso." @submit="handleLogin">
+        <form-wrapper formTitle="Entre com seus dados de acesso." @submit="handleLogin">
           <div class="form-group">
             <input-component
               v-model="username"
               type="text"
-              :width="inputWidth"
               label="Nome de usuário ou e-mail:"
               name="username"
               autocomplete="username"
@@ -24,37 +23,37 @@
             <input-component
               v-model="password"
               type="password"
-              :width="inputWidth"
               label="Senha:"
               name="password"
               autocomplete="current-password"
             />
           </div>
-          <button-component type="submit"> Entrar </button-component>
-        </FormWrapper>
+          <button-component type="submit" button-type="primary" :full-width="true">
+            Entrar
+          </button-component>
+        </form-wrapper>
       </main>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import InputComponent from '@/components/InputComponent.vue'
-import ButtonComponent from '@/components/ButtonComponent.vue'
-import FormWrapper from '@/components/FormWrapper.vue'
+import InputComponent from '@/components/Form/Inputs/InputComponent.vue'
+import ButtonComponent from '@/components/Buttons/ButtonComponent.vue'
+import FormWrapper from '@/components/Form/FormWrapper.vue'
 
 const store = useStore()
 const router = useRouter()
-const username = ref('')
-const password = ref('')
+let username = ''
+let password = ''
 
 const handleLogin = async () => {
   try {
     const isAuthenticated = await store.dispatch('auth/login', {
-      username: username.value,
-      password: password.value,
+      username,
+      password,
     })
 
     console.log('isAuthenticated:', isAuthenticated)
@@ -70,7 +69,7 @@ const handleLogin = async () => {
 }
 </script>
 <style lang="stylus" scoped>
-@import '../styles/variables.styl'
+@import '../../styles/variables.styl'
 
 .app-layout
   display flex
@@ -90,20 +89,21 @@ const handleLogin = async () => {
   justify-content center
 
 
+
 .header-content
   display flex
   flex-direction column
   align-items flex-start
   justify-content flex-start
 
-  
+
 
   h1 {
   text-styles(48px, 300, #fff, 1)
   @media screen and (max-width: 375px) {
     text-styles(36px, 300, #fff, 1)
   }
-  } 
+  }
 
   p {
    text-styles(16px, 300, #fff, 1)
@@ -127,9 +127,6 @@ const handleLogin = async () => {
   max-width 300px
   width 100%
   margin 0 auto
-
-.form-group
-  margin-bottom 1rem
 
 label
   display block

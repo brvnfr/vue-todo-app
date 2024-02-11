@@ -26,9 +26,11 @@ module.exports = {
       {
         allowUsingIterationVar: false,
       },
+      //~  componentes importados com elemento HTML em kebab-case
     ],
+    'vue/component-name-in-template-casing': ['error', 'kebab-case'],
     //~~ Remove ';', usa aspas simples nas strings e adiciona ',' em arrays e objetos.
-    'prettier/prettier': ['error', { semi: false, singleQuote: true, trailingComma: 'es6' }],
+    'prettier/prettier': ['error', { semi: false, singleQuote: true, trailingComma: 'all' }],
   },
   parserOptions: {
     ecmaVersion: 'latest',
