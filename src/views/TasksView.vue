@@ -4,6 +4,16 @@
     <div class="tasks-content">
       <!-- Barra de Busca -->
       <div class="task-search">
+        <!-- <h2>Minhas Tarefas</h2>
+        <span
+          >Olá <span>Eduardo</span>,
+          <span v-if="incompleteTasks.length > 0">
+            você tem
+            <router-link to="/tasks/incomplete">{{ incompleteTasks.length }} tarefas</router-link>
+            pendentes
+          </span>
+          <span v-if="incompleteTasks.length < 1">você não tem tarefas pendentes.</span>
+        </span> -->
         <input-component
           type="text"
           placeholder="Buscar tarefas"
@@ -14,8 +24,6 @@
       <!-- Lista de Tarefas -->
       <ul class="task-list">
         <li v-for="(task, index) in tasks" :key="index" class="task-card">
-          <!-- <button @click="editTaskDialog(index)">Editar</button>
-            <button @click="deleteTask(index)">Excluir</button> -->
           <div class="task-title">
             <div class="task-check">
               <input
@@ -31,7 +39,22 @@
           </div>
           <div class="category-badge">
             <span>{{ task.category }}</span>
-            <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
+            <div class="dropdown" @click="toggleDropdown(index)">
+              <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
+              <div v-if="showDropdown === index" class="dropdown-menu">
+                <font-awesome-icon
+                  icon="fa-solid fa-ellipsis-vertical"
+                  class="dropdown-icon"
+                  @click="toggleDropdown(index)"
+                />
+                <button class="dropdown-button" @click="editTaskDialog(index)">
+                  <span class="dot"></span>Editar
+                </button>
+                <button class="dropdown-button" @click="deleteTask(index)">
+                  <span class="dot"></span>Excluir
+                </button>
+              </div>
+            </div>
           </div>
         </li>
       </ul>
@@ -91,6 +114,12 @@ import RadioListComponent from '@/components/Form/Inputs/RadioListComponent.vue'
 import InputComponent from '@/components/Form/Inputs/InputComponent.vue'
 
 const store = useStore()
+
+let showDropdown = ref(null)
+
+const toggleDropdown = (index) => {
+  showDropdown.value = showDropdown.value === index ? null : index
+}
 
 let newTask = {
   title: '',
@@ -203,7 +232,6 @@ onMounted(() => {
     height 112px
     max-width 100%
 
-
 .tasks-content
   width calc(100% - 227px)
   display flex
@@ -212,30 +240,86 @@ onMounted(() => {
   align-items center
   height calc(100% - 112px)
   overflow auto
+
   @media (max-width: 1024px)
     width 100%
 
   .task-search, .task-list
     min-width 300px
-    width: 90%;
+    width: 90%
     max-width 700px
     max-height 420px
+
     @media (max-width: 375px)
       width 300px
 
 .task-title, .category-badge
   display inline-flex
   align-items center
+
 .task-card
-  padding 2rem 1 rem
+  padding 2rem 1rem
   margin 0.5rem 0
   border-radius 5px
   display flex
   align-items center
-  justify-content: space-between;
+  justify-content: space-between
 
   .task-description
     max-width 150px
+
+  .dropdown
+    position relative
+    cursor pointer
+
+    .dropdown-menu
+      position absolute
+      padding 1rem
+      top -15px
+      right -16px
+      width 109px
+      background-color white
+      box-shadow 0px 2px 4px rgba(0, 0, 8, 0.3)
+      border-radius 5px
+      padding 8px
+      z-index 2
+
+      .dropdown-button
+        display block
+        padding .5rem 1rem
+        margin-left 8px
+        text-align center
+        border none
+        background none
+        cursor pointer
+        position relative
+        overflow hidden
+        text-styles(14px, 600, brand-gray-800, 1)
+
+        &::before
+          content ""
+          width 9px
+          height 9px
+          background-color brand-gray-500  // Cor cinza padrão
+          border-radius 50%
+          display inline-block
+          position absolute
+          left 0
+          top 50%
+          transform translateY(-50%)
+          transition background-color 0.3s ease
+
+        &:hover
+          &::before
+            background-color brand-green-500  // Altera a cor para verde no hover
+
+      .dropdown-icon
+        margin 8px
+        position absolute
+        top 8px
+        right 8px
+        color brand-blue-500
+        cursor pointer
 
   .task-check
     height 32px
@@ -256,25 +340,26 @@ onMounted(() => {
       width 32px
       -webkit-appearance none
 
-    input[type=checkbox]:hover
-      opacity 1
+      &:hover
+        opacity 1
 
-    input[type=checkbox]:checked
-      background-color brand-green-400
-      opacity 1
+      &:checked
+        background-color brand-green-400
+        opacity 1
 
-    input[type=checkbox]:before
-      content ''
-      position absolute
-      right 50%
-      top 50%
-      width 6px
-      height 14px
-      border solid brand-gray-200
-      border-width 0 3px 3px 0
-      margin -1px -1px 0 -1px
-      transform rotate(45deg) translate(-50%, -50%)
-      z-index 2
+      &:before
+        content ''
+        position absolute
+        right 50%
+        top 50%
+        width 6px
+        height 14px
+        border solid brand-gray-200
+        border-width 0 3px 3px 0
+        margin -1px -1px 0 -1px
+        transform rotate(45deg)
+        translate(-50%, -50%)
+        z-index 2
 
 .form-buttons
   width 100%
@@ -297,7 +382,7 @@ li
   box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1))
   background-color white
   border-radius 4px
-  margin .5rem
+  margin 0.5rem
   padding 1.5rem
   display flex
   justify-content space-between
