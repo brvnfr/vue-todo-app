@@ -15,7 +15,13 @@
       </div>
     </div>
     <div class="category-badge">
-      <span>{{ task.category }}</span>
+      <span
+        class="badge"
+        :style="{
+          backgroundColor: task.category === 'urgent' ? '#FF4874' : '#FFC42E',
+        }"
+        >{{ task.category }}</span
+      >
       <div class="dropdown" ref="dropdownRef" @click="toggleDropdown">
         <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" />
         <div v-if="showDropdown" class="dropdown-menu">
@@ -90,6 +96,13 @@ const emitDeleteTask = () => {
     overflow hidden
     text-overflow ellipsis
     text-align start
+
+  .category-badge
+    .badge
+      padding .25rem 1rem
+      background-color brand-gray-200
+      border-radius 40px
+      text-styles(11px, 700, white, 1)
 
   .task-header
     display flex
