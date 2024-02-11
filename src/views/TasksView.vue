@@ -1,7 +1,9 @@
 <template>
-  <main>
+  <main class="tasks-page">
     <div class="tasks-filter">aaaaa</div>
     <div class="tasks-content">
+      <!-- Barra de Busca -->
+      <div class="task-search">...</div>
       <!-- Lista de Tarefas -->
       <ul class="task-list">
         <li v-for="(task, index) in tasks" :key="index" class="task-card">
@@ -167,14 +169,16 @@ onMounted(() => {
 <style scoped lang="stylus">
 @import '../styles/variables.styl'
 
-section
-  display flex
-  flex-direction column
-  align-items center
-  justify-content center
-  flex-direction column
+.tasks-page
+  background-color brand-gray-150
   width 100%
-  height 100%
+  height calc(100vh - 82px)
+  display flex
+  justify-content start
+  align-items center
+
+  @media (max-width: 768px)
+    flex-direction column
 
 .tasks-filter
   width 100%
@@ -182,109 +186,116 @@ section
   max-width 227px
   background-color brand-gray-100
   box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1))
+
+  @media (max-width: 768px)
+    height 112px
+    max-width 100%
+
+
 .tasks-content
-    width: calc(100% - 227px);
-    display flex
-    justify-content center
-
-    .task-list
-      width 100%
-      max-width 700px
-      padding 2rem
-
-  .task-card
+  width calc(100% - 227px)
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  height calc(100% - 112px)
+  overflow auto
+  @media (max-width: 768px)
     width 100%
-    padding 1rem
-    border-radius 5px
-    margin-bottom 1rem
+  .task-search
     display flex
-    align-items center
+    width 100%
+  .task-list
+    min-width 300px
+    width 700px
+    max-height 420px
+    padding 2rem
+
+
+.task-card
+  width 90%
+  padding 2rem 1 rem
+  border-radius 5px
+  display flex
+  align-items center
+
   .task-check
-        height 32px
-        width 32px
+    height 32px
+    width 32px
 
-        input[type=checkbox] {
-          position: relative;
-          border: 2px solid white;
-          border-radius: 5px;
-          background: brand-gray-200;
-          cursor: pointer;
-          line-height: 0;
-          margin: 0 .6em 0 0;
-          outline: 0;
-          padding: 0 !important;
-          vertical-align: text-top;
-          height: 32px;
-          width: 32px;
-          -webkit-appearance: none;
-          /* Removed opacity: .5; */
-        }
+    input[type=checkbox]
+      position relative
+      border 2px solid white
+      border-radius 5px
+      background brand-gray-200
+      cursor pointer
+      line-height 0
+      margin 0 .6em 0 0
+      outline 0
+      padding 0 !important
+      vertical-align text-top
+      height 32px
+      width 32px
+      -webkit-appearance none
 
-        input[type=checkbox]:hover {
-          opacity: 1;
-        }
+    input[type=checkbox]:hover
+      opacity 1
 
-        input[type=checkbox]:checked {
-          background-color: brand-green-400;
-          opacity: 1;
-        }
+    input[type=checkbox]:checked
+      background-color brand-green-400
+      opacity 1
 
-        input[type=checkbox]:before {
-          content: '';
-          position: absolute;
-          right: 50%;
-          top: 50%;
-          width: 6px;
-          height: 14px;
-          border: solid brand-gray-200;
-          border-width: 0 3px 3px 0;
-          margin: -1px -1px 0 -1px;
-          transform: rotate(45deg) translate(-50%, -50%);
-          z-index: 2;
-        }
-
-
+    input[type=checkbox]:before
+      content ''
+      position absolute
+      right 50%
+      top 50%
+      width 6px
+      height 14px
+      border solid brand-gray-200
+      border-width 0 3px 3px 0
+      margin -1px -1px 0 -1px
+      transform rotate(45deg) translate(-50%, -50%)
+      z-index 2
 
 .form-buttons
-    width 100%
-    display inline-flex
-    justify-content space-between
-    gap 16px
-    margin 1rem 0
+  width 100%
+  display inline-flex
+  justify-content space-between
+  gap 16px
+  margin 1rem 0
 
-  label
-    text-styles(16px, 300, brand-gray-950, 1)
+label
+  text-styles(16px, 300, brand-gray-950, 1)
 
-  div
-    gap 1rem
+div
+  gap 1rem
 
 ul
   list-style none
   padding 0
 
-  li
-    box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1))
-    background-color white
-    border-radius 4px
-    margin .5rem
-    padding 1.5rem
-    display flex
-    justify-content space-between
-    text-styles(16px, 700, brand-gray-800, 1)
-    text-align start
+li
+  box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1))
+  background-color white
+  border-radius 4px
+  margin .5rem
+  padding 1.5rem
+  display flex
+  justify-content space-between
+  text-styles(16px, 700, brand-gray-800, 1)
+  text-align start
 
+.task-description
+  width -webkit-fill-available
+  max-width 250px
+  overflow hidden
+  text-overflow ellipsis
+  text-align start
 
-    .task-description
-      width: -webkit-fill-available;
-      max-width: 250px
-      overflow: hidden;
-      text-overflow ellipsis
-      text-align start
-
-
-    .task-header
-      display flex
-      justify-content space-between
-      align-items center
-      width 80%
+.task-header
+  display flex
+  justify-content space-between
+  align-items center
+  width 80%
 </style>
