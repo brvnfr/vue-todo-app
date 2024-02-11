@@ -8,6 +8,7 @@
           type="checkbox"
           :id="'task-checkbox-' + index"
           :value="task.completed"
+          @change="markTaskAsCompleted"
         />
       </div>
       <div class="task-title">
@@ -46,7 +47,7 @@
 import { ref, defineProps, defineEmits } from 'vue'
 
 const props = defineProps(['task', 'index'])
-const emits = defineEmits(['editTask', 'deleteTask'])
+const emits = defineEmits(['editTask', 'deleteTask', 'set-task-completed'])
 
 const showDropdown = ref(false)
 
@@ -62,6 +63,10 @@ const emitEditTask = () => {
 const emitDeleteTask = () => {
   toggleDropdown()
   emits('deleteTask', props.index)
+}
+
+const markTaskAsCompleted = () => {
+  emits('set-task-completed', props.index)
 }
 </script>
 

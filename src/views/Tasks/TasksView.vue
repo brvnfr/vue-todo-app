@@ -53,6 +53,7 @@
           :index="index"
           @editTask="openEditTaskDialog"
           @deleteTask="openDeleteTaskDialog"
+          @set-task-completed="setTaskComplete"
         />
       </ul>
 
@@ -221,6 +222,10 @@ const deleteTask = () => {
 
   // Feche o modal após a exclusão
   closeDeleteTaskDialog()
+}
+
+const setTaskComplete = (index) => {
+  store.dispatch('tasks/setTaskCompleted', index)
 }
 
 const editTaskDialog = (index) => {
