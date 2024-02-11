@@ -19,7 +19,7 @@
           </div>
 
           <div class="task-description">
-            {{ task.description }}
+            {{ task.title }}
           </div>
           <div class="category-badge">
             <span>{{ task.category }}</span>
@@ -31,6 +31,7 @@
       <!-- Diálogo para adicionar tarefa -->
       <dialog-overlay :showOverlay="showAddTaskDialog" @close="closeAddTaskDialog">
         <form-wrapper :formTitle="'Adicionar Tarefa'" @submit="addTask">
+          <input-component v-model="newTask.title" type="text" label="Titulo:" name="title" />
           <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
           <div class="form-buttons">
             <radio-list-component
@@ -64,7 +65,7 @@
         </form-wrapper>
       </dialog-overlay>
 
-      <!-- Usando o componente AnchorButton -->
+      <!-- Botão Flutuante/Ancorado -->
       <anchor-button :openDialog="openAddTaskDialog" />
     </div>
   </main>
@@ -79,16 +80,19 @@ import ButtonComponent from '@/components/Buttons/ButtonComponent.vue'
 import FormWrapper from '@/components/Form/FormWrapper.vue'
 import TextAreaComponent from '@/components//Form/Inputs/TextAreaComponent.vue'
 import RadioListComponent from '@/components/Form/Inputs/RadioListComponent.vue'
+import InputComponent from '@/components/Form/Inputs/InputComponent.vue'
 
 const store = useStore()
 
 let newTask = {
+  title: '',
   description: '',
   completed: false,
   category: null,
 }
 
 let editedTask = {
+  title: '',
   description: '',
   completed: false,
   category: null,
@@ -177,7 +181,7 @@ onMounted(() => {
   justify-content start
   align-items center
 
-  @media (max-width: 768px)
+  @media (max-width: 1024px)
     flex-direction column
 
 .tasks-filter
@@ -187,7 +191,7 @@ onMounted(() => {
   background-color brand-gray-100
   box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1))
 
-  @media (max-width: 768px)
+  @media (max-width: 1024px)
     height 112px
     max-width 100%
 
@@ -200,21 +204,21 @@ onMounted(() => {
   align-items center
   height calc(100% - 112px)
   overflow auto
-  @media (max-width: 768px)
+  @media (max-width: 1024px)
     width 100%
-  .task-search
-    display flex
-    width 100%
-  .task-list
+  .task-search, .task-list
     min-width 300px
-    width 700px
+    width: 90%;
+    max-width 700px
     max-height 420px
     padding 2rem
+    @media (max-width: 375px)
+      width 300px
 
 
 .task-card
-  width 90%
   padding 2rem 1 rem
+  margin 0.5rem 0
   border-radius 5px
   display flex
   align-items center
