@@ -3,7 +3,14 @@
     <div class="tasks-filter">aaaaa</div>
     <div class="tasks-content">
       <!-- Barra de Busca -->
-      <div class="task-search">...</div>
+      <div class="task-search">
+        <input-component
+          type="text"
+          placeholder="Buscar tarefas"
+          name="title"
+          iconClass="magnifying-glass"
+        />
+      </div>
       <!-- Lista de Tarefas -->
       <ul class="task-list">
         <li v-for="(task, index) in tasks" :key="index" class="task-card">
@@ -212,7 +219,6 @@ onMounted(() => {
     width: 90%;
     max-width 700px
     max-height 420px
-    padding 2rem
     @media (max-width: 375px)
       width 300px
 
@@ -226,6 +232,9 @@ onMounted(() => {
   display flex
   align-items center
   justify-content: space-between;
+
+  .task-description
+    max-width 150px
 
   .task-check
     height 32px
