@@ -51,7 +51,7 @@
           :key="index"
           :task="task"
           :index="index"
-          @editTask="openEditTaskDialog"
+          @editTask="editTaskDialog"
           @deleteTask="openDeleteTaskDialog"
           @set-task-completed="setTaskComplete"
         />
@@ -216,11 +216,8 @@ const editTask = () => {
 }
 
 const deleteTask = () => {
-  // Implemente a lógica para excluir a tarefa usando deletingTaskIndex
   store.dispatch('tasks/deleteTask', deletingTaskIndex)
-  // ...
 
-  // Feche o modal após a exclusão
   closeDeleteTaskDialog()
 }
 
