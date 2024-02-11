@@ -52,7 +52,9 @@ const emits = defineEmits(['editTask', 'deleteTask', 'set-task-completed'])
 const showDropdown = ref(false)
 
 const toggleDropdown = () => {
-  showDropdown.value = !showDropdown.value
+  if (!props.task.completed) {
+    showDropdown.value = !showDropdown.value
+  }
 }
 
 const emitEditTask = () => {
