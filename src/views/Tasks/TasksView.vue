@@ -15,10 +15,12 @@
           <span v-if="incompleteTasks.length < 1">você não tem tarefas pendentes.</span>
         </span> -->
         <input-component
+          v-model="newTaskFilter"
           type="text"
           placeholder="Buscar tarefas"
-          name="title"
+          name="filter"
           iconClass="magnifying-glass"
+          @input="handleSearch"
         />
       </div>
       <!-- Lista de Tarefas -->
@@ -132,6 +134,7 @@ let editedTask = {
 
 let editingTaskIndex = null
 let deletingTaskIndex = null
+let newTaskFilter = null
 
 const tasks = computed(() => store.getters['tasks/getTasks'])
 
@@ -212,6 +215,11 @@ const resetNewTask = () => {
     completed: false,
     category: null,
   }
+}
+
+const handleSearch = () => {
+  store.dispatch('tasks/updateFilter', newTaskFilter)
+  store.dispatch('tasks/fetchTasks')
 }
 
 onMounted(() => {

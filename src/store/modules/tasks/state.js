@@ -1,5 +1,6 @@
 const state = {
   tasks: [],
+  filter: '',
 }
 
 export default {

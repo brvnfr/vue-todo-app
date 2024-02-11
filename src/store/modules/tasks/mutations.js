@@ -14,6 +14,9 @@ const mutations = {
   deleteTask(state, index) {
     state.tasks.splice(index, 1)
   },
+  setFilter(state, filter) {
+    state.filter = filter
+  },
 }
 
 export default mutations
