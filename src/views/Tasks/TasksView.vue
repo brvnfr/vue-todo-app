@@ -26,11 +26,11 @@
       <!-- Barra de Busca -->
       <div class="task-search">
         <h2>Minhas Tarefas</h2>
-        <span
-          >Olá <span>Eduardo</span>,
-          <span> você tem tarefas pendentes </span>
+        <p>
+          Olá <strong>Eduardo Pereira da Costa</strong>,
+          <span> você tem <strong>tarefas pendentes</strong></span>
           <span>você não tem tarefas pendentes</span>
-        </span>
+        </p>
         <input-component
           v-model="newTaskFilter"
           type="text"
