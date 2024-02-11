@@ -10,7 +10,7 @@
           :value="task.completed"
         />
       </div>
-      <div class="task-description">
+      <div class="task-title">
         {{ task.title }}
       </div>
     </div>
@@ -79,6 +79,7 @@ const emitDeleteTask = () => {
   align-items center
   justify-content: space-between
   background-color white
+  overflow auto
   text-align start
   box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1))
   text-styles(16px, 700, brand-gray-800, 1)
@@ -90,15 +91,18 @@ const emitDeleteTask = () => {
     list-style none
     padding 0
 
-  .task-description
+  .task-title
     width -webkit-fill-available
-    max-width 150px
     overflow hidden
     text-overflow ellipsis
     text-align start
 
+    @media (max-width: 400px)
+      max-width 100px
+
   .category-badge
     .badge
+      margin 0 0.5rem
       padding .25rem 1rem
       background-color brand-gray-200
       border-radius 40px
