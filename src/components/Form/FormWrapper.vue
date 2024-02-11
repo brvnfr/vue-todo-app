@@ -26,6 +26,7 @@ const validateForm = () => {
 <style scoped lang="stylus">
 @import '../../styles/variables.styl'
 .form-wrapper
+  width 100%
   flex-direction:column
   display  flex
   gap 1rem;

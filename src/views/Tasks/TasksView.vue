@@ -35,7 +35,7 @@
 
       <!-- Diálogo para adicionar tarefa -->
       <dialog-overlay :showOverlay="showAddTaskDialog" @close="closeAddTaskDialog">
-        <form-wrapper :formTitle="'Adicionar Tarefa'" @submit="addTask">
+        <form-wrapper :formTitle="'Adicionar Tarefa'" @submit="addTask" class="dialog-form">
           <input-component v-model="newTask.title" type="text" label="Titulo:" name="title" />
           <text-area-component label="Descrição:" v-model="newTask.description" rows="4" />
           <div class="form-buttons">
@@ -54,7 +54,7 @@
 
       <!-- Diálogo para editar tarefa -->
       <dialog-overlay :showOverlay="showEditTaskDialog" @close="closeEditTaskDialog">
-        <form-wrapper :formTitle="'Editar Tarefa'" @submit="editTask">
+        <form-wrapper :formTitle="'Editar Tarefa'" @submit="editTask" class="dialog-form">
           <input-component v-model="editedTask.title" type="text" label="Titulo:" name="title" />
           <text-area-component label="Descrição:" v-model="editedTask.description" rows="4" />
           <div class="form-buttons">
@@ -71,15 +71,25 @@
         </form-wrapper>
       </dialog-overlay>
 
-      <!-- Botão Flutuante/Ancorado -->
-      <anchor-button :openDialog="openAddTaskDialog" />
-
       <!-- Diálogo para excluir tarefa -->
       <dialog-overlay :showOverlay="showDeleteTaskDialog" @close="closeDeleteTaskDialog">
-        <!-- Adicione aqui o conteúdo do modal de exclusão -->
-        <p>Tem certeza que deseja excluir esta tarefa?</p>
-        <button @click="deleteTask">Confirmar</button>
+        <div class="delete-dialog-content">
+          <div class="delete-ilustration">
+            <font-awesome-icon :icon="['far', 'trash-can']" />
+          </div>
+          <h3>Tem certeza que deseja <strong>excluir</strong> esta tarefa?</h3>
+          <p>Esta ação não poderá ser desfeita.</p>
+          <div class="dialog-buttons">
+            <button-component button-type="primary" @click="closeDeleteTaskDialog"
+              >Cancelar</button-component
+            >
+            <button-component button-type="danger" @click="deleteTask">Confirmar</button-component>
+          </div>
+        </div>
       </dialog-overlay>
+
+      <!-- Botão Flutuante/Ancorado -->
+      <anchor-button :openDialog="openAddTaskDialog" />
     </div>
   </main>
 </template>
@@ -268,4 +278,33 @@ onMounted(() => {
 
 label
   text-styles(16px, 300, brand-gray-950, 1)
+
+.delete-dialog-content
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  gap 1rem
+  .delete-ilustration
+      display flex
+      align-items center
+      justify-content center
+      padding 2rem
+      background-color brand-gray-200
+      border-radius 50%
+
+      svg
+        width 67px
+        height 67px
+        color brand-gray-850
+
+  .dialog-buttons
+    width 100%
+    display inline-flex
+    justify-content center
+    gap 16px
+    margin 1rem 0
+
+.dialog-form
+  width 100%
 </style>

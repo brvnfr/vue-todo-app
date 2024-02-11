@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-mutating-props -->
 <template>
   <li class="task-card">
     <div class="task-title">
@@ -16,12 +17,12 @@
     <div class="category-badge">
       <span>{{ task.category }}</span>
       <div class="dropdown" ref="dropdownRef" @click="toggleDropdown">
-        <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
+        <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" />
         <div v-if="showDropdown" class="dropdown-menu">
           <font-awesome-icon
-            icon="fa-solid fa-ellipsis-vertical"
-            class="dropdown-icon"
+            :icon="['fas', 'ellipsis-vertical']"
             @click="toggleDropdown"
+            class="dropdown-icon"
           />
           <button class="dropdown-button" @click="emitEditTask">
             <span class="dot"></span>Editar
