@@ -9,22 +9,23 @@
         <li v-for="(task, index) in tasks" :key="index" class="task-card">
           <!-- <button @click="editTaskDialog(index)">Editar</button>
             <button @click="deleteTask(index)">Excluir</button> -->
-          <div class="task-check">
-            <input
-              v-model="task.completed"
-              type="checkbox"
-              id="task-checkbox"
-              :value="task.completed"
-            />
-          </div>
-
-          <div class="task-description">
-            {{ task.title }}
+          <div class="task-title">
+            <div class="task-check">
+              <input
+                v-model="task.completed"
+                type="checkbox"
+                id="task-checkbox"
+                :value="task.completed"
+              />
+            </div>
+            <div class="task-description">
+              {{ task.title }}
+            </div>
           </div>
           <div class="category-badge">
             <span>{{ task.category }}</span>
+            <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
           </div>
-          <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
         </li>
       </ul>
 
@@ -215,13 +216,16 @@ onMounted(() => {
     @media (max-width: 375px)
       width 300px
 
-
+.task-title, .category-badge
+  display inline-flex
+  align-items center
 .task-card
   padding 2rem 1 rem
   margin 0.5rem 0
   border-radius 5px
   display flex
   align-items center
+  justify-content: space-between;
 
   .task-check
     height 32px
