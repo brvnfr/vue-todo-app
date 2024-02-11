@@ -1,12 +1,25 @@
 <template>
   <main class="tasks-page">
     <div class="tasks-filter">
+      <h2>Categorias</h2>
       <ul class="filter-list">
-        <li @click="handleCategoryFilter(null)">Todas</li>
-        <li @click="handleCategoryFilter('urgent')">Urgentes</li>
-        <li @click="handleCategoryFilter('important')">Importantes</li>
-        <li @click="handleCategoryFilter('other')">Outras</li>
-        <li @click="handleCompletedFilter">Finalizadas</li>
+        <li @click="handleCategoryFilter(null)">
+          <font-awesome-icon :icon="['fas', 'chevron-right']" /> Todas
+        </li>
+        <li @click="handleCategoryFilter('urgent')">
+          <font-awesome-icon :icon="['fas', 'chevron-right']" /> Urgentes
+          <span class="urgent-dot">0</span>
+        </li>
+        <li @click="handleCategoryFilter('important')">
+          <font-awesome-icon :icon="['fas', 'chevron-right']" /> Importantes
+          <span class="important-dot">0</span>
+        </li>
+        <li @click="handleCategoryFilter('other')">
+          <font-awesome-icon :icon="['fas', 'chevron-right']" /> Outras
+        </li>
+        <li @click="handleCompletedFilter">
+          <font-awesome-icon :icon="['fas', 'chevron-right']" /> Finalizadas
+        </li>
       </ul>
     </div>
     <div class="tasks-content">
@@ -263,6 +276,8 @@ onMounted(() => {
 
 .tasks-filter
   display flex
+  flex-direction column
+  gap 4rem
   align-items center
   justify-content center
   width 100%
@@ -273,19 +288,26 @@ onMounted(() => {
   box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1))
   text-styles(14px, bold, brand-gray-800, 1)
 
+  h2
+    color brand-gray-950
+    @media (max-width: 1024px)
+      display none
   @media (max-width: 1024px)
     height 112px
     max-width 100%
-    flex-direction row
 
   .tasks-filter
   .filter-list
-    width 80%
+    width 70%
     display flex
+    justify-content center
+    align items center
     flex-direction column
     list-style-type none
     padding 0
     margin 0
+    svg
+      margin-right 8px
 
     @media (max-width: 1024px)
       flex-direction row
@@ -294,11 +316,27 @@ onMounted(() => {
     li
       cursor pointer
       padding 8px
-      margin-right 10px
+      margin 10px 0
       border-radius 5px
       background-color brand-gray-100
       transition background-color 0.3s
       transition all .3s ease
+
+      .urgent-dot
+        padding 4px 7px
+        background-color brand-red-500
+        border-radius 100%
+        text-styles(11px, 700, white, 1)
+
+      .important-dot
+        padding 4px 7px
+        background-color brand-yellow-500
+        border-radius 100%
+        text-styles(11px, 700, white, 1)
+
+
+      @media (max-width: 425px)
+        margin 0
 
 
       &:hover
