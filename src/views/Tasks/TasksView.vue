@@ -1,6 +1,14 @@
 <template>
   <main class="tasks-page">
-    <div class="tasks-filter">aaaaa</div>
+    <div class="tasks-filter">
+      <ul class="filter-list">
+        <li @click="handleCategoryFilter(null)">Todas</li>
+        <li @click="handleCategoryFilter('urgent')">Urgentes</li>
+        <li @click="handleCategoryFilter('important')">Importantes</li>
+        <li @click="handleCategoryFilter('other')">Outras</li>
+        <li @click="handleCompletedFilter">Finalizadas</li>
+      </ul>
+    </div>
     <div class="tasks-content">
       <!-- Barra de Busca -->
       <div class="task-search">
@@ -217,6 +225,18 @@ const resetNewTask = () => {
   }
 }
 
+const handleCategoryFilter = (category) => {
+  store.dispatch('tasks/updateFilter', newTaskFilter)
+  store.dispatch('tasks/updateCategoryFilter', category)
+  store.dispatch('tasks/fetchTasks')
+}
+
+const handleCompletedFilter = () => {
+  store.dispatch('tasks/updateFilter', newTaskFilter)
+  store.dispatch('tasks/updateCompletedFilter')
+  store.dispatch('tasks/fetchTasks')
+}
+
 const handleSearch = () => {
   store.dispatch('tasks/updateFilter', newTaskFilter)
   store.dispatch('tasks/fetchTasks')
@@ -242,15 +262,47 @@ onMounted(() => {
     flex-direction column
 
 .tasks-filter
+  display flex
+  align-items center
+  justify-content center
   width 100%
   height 100%
   max-width 227px
   background-color brand-gray-100
+  overflow hidden
   box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1))
+  text-styles(14px, bold, brand-gray-800, 1)
 
   @media (max-width: 1024px)
     height 112px
     max-width 100%
+    flex-direction row
+
+  .tasks-filter
+  .filter-list
+    width 80%
+    display flex
+    flex-direction column
+    list-style-type none
+    padding 0
+    margin 0
+
+    @media (max-width: 1024px)
+      flex-direction row
+      flex-wrap wrap
+
+    li
+      cursor pointer
+      padding 8px
+      margin-right 10px
+      border-radius 5px
+      background-color brand-gray-100
+      transition background-color 0.3s
+      transition all .3s ease
+
+
+      &:hover
+        color brand-blue-500
 
 .tasks-content
   width calc(100% - 227px)
