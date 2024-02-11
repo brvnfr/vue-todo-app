@@ -39,7 +39,7 @@
           </div>
           <div class="category-badge">
             <span>{{ task.category }}</span>
-            <div class="dropdown" @click="toggleDropdown(index)">
+            <div class="dropdown" ref="dropdownRef" @click="toggleDropdown(index)">
               <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
               <div v-if="showDropdown === index" class="dropdown-menu">
                 <font-awesome-icon
@@ -120,6 +120,8 @@ let showDropdown = ref(null)
 const toggleDropdown = (index) => {
   showDropdown.value = showDropdown.value === index ? null : index
 }
+
+const dropdownRef = ref(null)
 
 let newTask = {
   title: '',
@@ -300,7 +302,7 @@ onMounted(() => {
           content ""
           width 9px
           height 9px
-          background-color brand-gray-500  // Cor cinza padrão
+          background-color brand-gray-500
           border-radius 50%
           display inline-block
           position absolute
@@ -311,7 +313,7 @@ onMounted(() => {
 
         &:hover
           &::before
-            background-color brand-green-500  // Altera a cor para verde no hover
+            background-color brand-green-500
 
       .dropdown-icon
         margin 8px
@@ -350,8 +352,8 @@ onMounted(() => {
       &:before
         content ''
         position absolute
-        right 50%
-        top 50%
+        right 40%
+        top 20%
         width 6px
         height 14px
         border solid brand-gray-200
