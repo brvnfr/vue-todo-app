@@ -5,7 +5,6 @@ const isAuthenticated = () => {
   return store.state.auth.isAuthenticated
 }
 
-//~ Rota de guarda de autenticação
 const routes = [
   {
     path: '/',
@@ -45,6 +44,7 @@ const router = createRouter({
   routes,
 })
 
+//~ guarda de autenticação
 // router.beforeEach((to, from, next) => {
 //   //~ Verifica se a rota requer autenticação
 //   if (to.matched.some((record) => record.meta.requiresAuth)) {
