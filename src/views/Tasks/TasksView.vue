@@ -1,37 +1,61 @@
 <template>
   <main class="tasks-page">
-    <div class="tasks-filter">aaaaa</div>
+    <div class="tasks-filter">
+      <h2>Categorias</h2>
+      <ul class="filter-list">
+        <li @click="handleCategoryFilter(null)">
+          <font-awesome-icon :icon="['fas', 'chevron-right']" /> Todas
+        </li>
+        <li @click="handleCategoryFilter('urgent')">
+          <font-awesome-icon :icon="['fas', 'chevron-right']" /> Urgentes
+          <span class="urgent-dot">{{ getCategoryCount('urgent') }}</span>
+        </li>
+        <li @click="handleCategoryFilter('important')">
+          <font-awesome-icon :icon="['fas', 'chevron-right']" /> Importantes
+          <span class="important-dot">{{ getCategoryCount('important') }}</span>
+        </li>
+        <li @click="handleCategoryFilter('other')">
+          <font-awesome-icon :icon="['fas', 'chevron-right']" /> Outras
+        </li>
+        <li @click="handleCompletedFilter">
+          <font-awesome-icon :icon="['fas', 'chevron-right']" /> Finalizadas
+        </li>
+      </ul>
+    </div>
     <div class="tasks-content">
       <!-- Barra de Busca -->
       <div class="task-search">
-        <!-- <h2>Minhas Tarefas</h2>
-        <span
-          >Olá <span>Eduardo</span>,
-          <span v-if="incompleteTasks.length > 0">
-            você tem
-            <router-link to="/tasks/incomplete">{{ incompleteTasks.length }} tarefas</router-link>
-            pendentes
+        <h2>Minhas Tarefas</h2>
+        <p>
+          Olá <strong>Eduardo Pereira da Costa</strong>,
+          <span v-if="pendingTasksCount > 0">
+            você tem <strong>{{ pendingTasksCount }} tarefas pendentes</strong>.
           </span>
-          <span v-if="incompleteTasks.length < 1">você não tem tarefas pendentes.</span>
-        </span> -->
+          <span v-else> você não tem nenhuma tarefa pendente. </span>
+        </p>
         <input-component
+          v-model="newTaskFilter"
           type="text"
           placeholder="Buscar tarefas"
-          name="title"
+          name="filter"
           iconClass="magnifying-glass"
+          @input="handleSearch"
         />
       </div>
-      <!-- Lista de Tarefas -->
-      <ul class="task-list">
-        <task-card
-          v-for="(task, index) in tasks"
-          :key="index"
-          :task="task"
-          :index="index"
-          @editTask="openEditTaskDialog"
-          @deleteTask="openDeleteTaskDialog"
-        />
-      </ul>
+      <div class="task-list">
+        <!-- Lista de Tarefas -->
+        <ul>
+          <task-card
+            v-for="(task, index) in tasks"
+            :key="index"
+            :task="task"
+            :index="index"
+            @editTask="editTaskDialog"
+            @deleteTask="openDeleteTaskDialog(task.id)"
+            @set-task-completed="setTaskComplete(task)"
+          />
+        </ul>
+      </div>
 
       <!-- Diálogo para adicionar tarefa -->
       <dialog-overlay :showOverlay="showAddTaskDialog" @close="closeAddTaskDialog">
@@ -129,11 +153,11 @@ let editedTask = {
   completed: false,
   category: null,
 }
-
+let deletingTaskId = null
 let editingTaskIndex = null
-let deletingTaskIndex = null
+let newTaskFilter = null
 
-const tasks = computed(() => store.getters['tasks/getTasks'])
+const tasks = computed(() => store.getters['tasks/getTasks'] || [])
 
 const showAddTaskDialog = ref(false)
 const showEditTaskDialog = ref(false)
@@ -157,8 +181,8 @@ const closeEditTaskDialog = () => {
   showEditTaskDialog.value = false
 }
 
-const openDeleteTaskDialog = (index) => {
-  deletingTaskIndex = index
+const openDeleteTaskDialog = (taskId) => {
+  deletingTaskId = taskId
   showDeleteTaskDialog.value = true
 }
 
@@ -171,6 +195,7 @@ const addTask = () => {
     store.dispatch('tasks/addTask', { ...newTask })
     resetNewTask()
     closeAddTaskDialog()
+    store.dispatch('tasks/fetchTasks')
   } else {
     console.error('Por favor, preencha todos os campos obrigatórios.')
   }
@@ -185,18 +210,24 @@ const editTask = () => {
     store.dispatch('tasks/editTask', { index: editingTaskIndex, task: { ...editedTask } })
     editingTaskIndex = null
     closeEditTaskDialog()
+    store.dispatch('tasks/fetchTasks')
   } else {
     console.error('Por favor, preencha todos os campos obrigatórios.')
   }
 }
 
 const deleteTask = () => {
-  // Implemente a lógica para excluir a tarefa usando deletingTaskIndex
-  store.dispatch('tasks/deleteTask', deletingTaskIndex)
-  // ...
+  if (deletingTaskId !== null) {
+    store.dispatch('tasks/deleteTaskById', deletingTaskId)
+    closeDeleteTaskDialog()
+    deletingTaskId = null
+    store.dispatch('tasks/fetchTasks')
+  }
+}
 
-  // Feche o modal após a exclusão
-  closeDeleteTaskDialog()
+const setTaskComplete = (task) => {
+  console.log('dados vindo do checkbox da tarefa', task)
+  store.dispatch('tasks/setTaskCompleted', task)
 }
 
 const editTaskDialog = (index) => {
@@ -214,97 +245,42 @@ const resetNewTask = () => {
   }
 }
 
+const handleCategoryFilter = (category) => {
+  store.dispatch('tasks/updateFilter', newTaskFilter)
+  store.dispatch('tasks/updateCategoryFilter', category)
+  store.dispatch('tasks/fetchTasks')
+}
+
+const handleSearch = () => {
+  store.dispatch('tasks/updateFilter', newTaskFilter)
+  store.dispatch('tasks/fetchTasks')
+}
+
+const getCategoryCount = (category) => {
+  // Filtra as tarefas pelo filtro atual
+  const filteredTasks = tasks.value.filter((task) => {
+    if (category === 'urgent') {
+      return task.category === 'urgent' && !task.completed
+    } else if (category === 'important') {
+      return task.category === 'important' && !task.completed
+    }
+    // Adicione mais condições conforme necessário para outras categorias
+    return false
+  })
+
+  // Retorna a contagem de tarefas na categoria
+  return filteredTasks.length
+}
+
+const pendingTasksCount = computed(() => {
+  return tasks.value ? tasks.value.filter((task) => !task.completed).length : 0
+})
+
 onMounted(() => {
   store.dispatch('tasks/fetchTasks')
 })
 </script>
 
 <style scoped lang="stylus">
-@import '../../styles/variables.styl'
-
-.tasks-page
-  background-color brand-gray-150
-  width 100%
-  height calc(100vh - 82px)
-  display flex
-  justify-content start
-  align-items center
-
-  @media (max-width: 1024px)
-    flex-direction column
-
-.tasks-filter
-  width 100%
-  height 100%
-  max-width 227px
-  background-color brand-gray-100
-  box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1))
-
-  @media (max-width: 1024px)
-    height 112px
-    max-width 100%
-
-.tasks-content
-  width calc(100% - 227px)
-  display flex
-  flex-direction column
-  justify-content center
-  align-items center
-  height calc(100% - 112px)
-  overflow auto
-
-  @media (max-width: 1024px)
-    width 100%
-
-  .task-search, .task-list
-    min-width 300px
-    width: 90%
-    max-width 700px
-    max-height 420px
-
-    @media (max-width: 375px)
-      width 300px
-
-.task-title, .category-badge
-  display inline-flex
-  align-items center
-
-.form-buttons
-  width 100%
-  display inline-flex
-  justify-content space-between
-  gap 16px
-  margin 1rem 0
-
-label
-  text-styles(16px, 300, brand-gray-950, 1)
-
-.delete-dialog-content
-  display flex
-  flex-direction column
-  justify-content center
-  align-items center
-  gap 1rem
-  .delete-ilustration
-      display flex
-      align-items center
-      justify-content center
-      padding 2rem
-      background-color brand-gray-200
-      border-radius 50%
-
-      svg
-        width 67px
-        height 67px
-        color brand-gray-0
-
-  .dialog-buttons
-    width 100%
-    display inline-flex
-    justify-content center
-    gap 16px
-    margin 1rem 0
-
-.dialog-form
-  width 100%
+@import './TasksView.styl'
 </style>

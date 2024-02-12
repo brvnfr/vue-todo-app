@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
-  <li class="task-card">
+  <li class="task-card" :class="{ 'completed-task': task.completed }">
     <div class="task-title">
       <div class="task-check">
         <input
@@ -8,6 +8,7 @@
           type="checkbox"
           :id="'task-checkbox-' + index"
           :value="task.completed"
+          @change="markTaskAsCompleted"
         />
       </div>
       <div class="task-title">
@@ -46,12 +47,14 @@
 import { ref, defineProps, defineEmits } from 'vue'
 
 const props = defineProps(['task', 'index'])
-const emits = defineEmits(['editTask', 'deleteTask'])
+const emits = defineEmits(['editTask', 'deleteTask', 'set-task-completed'])
 
 const showDropdown = ref(false)
 
 const toggleDropdown = () => {
-  showDropdown.value = !showDropdown.value
+  if (!props.task.completed) {
+    showDropdown.value = !showDropdown.value
+  }
 }
 
 const emitEditTask = () => {
@@ -62,6 +65,10 @@ const emitEditTask = () => {
 const emitDeleteTask = () => {
   toggleDropdown()
   emits('deleteTask', props.index)
+}
+
+const markTaskAsCompleted = () => {
+  emits('set-task-completed', props.index)
 }
 </script>
 
@@ -82,6 +89,9 @@ const emitDeleteTask = () => {
   text-align start
   box-shadow-mixin(0, 2px, 4px, rgba(0, 0, 0, 0.1))
   text-styles(16px, 700, brand-gray-800, 1)
+  &.completed-task
+    opacity 0.4
+    text-decoration line-through
 
   div
     gap 1rem

@@ -1,35 +1,93 @@
-# vue-todo-app
 
-This template should help get you started developing with Vue 3 in Vite.
+<h1  align="center">
 
-## Recommended IDE Setup
+<img  src="./src/assets/brand/logo.svg"  width="50%"/>
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+</h1>
 
-## Customize configuration
+  
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+##  Checklist de Requisitos
 
-## Project Setup
+  
 
-```sh
-npm install
-```
+Pré-requisito - Nível 1
 
-### Compile and Hot-Reload for Development
+  
 
-```sh
-npm run dev
-```
+- [x] Utilizar Vue.js versão 3+
 
-### Compile and Minify for Production
+- [x] Montar as telas do app seguindo fielmente o design
 
-```sh
-npm run build
-```
+- [x] Não utilizar nenhum framework CSS
 
-### Lint with [ESLint](https://eslint.org/)
+- [x] Utilizar Stylus como pré-processador CSS
 
-```sh
-npm run lint
-```
+- [x] Componentizar os elementos das telas o máximo possível.
+
+  
+
+Pré-requisito - Nível 2
+
+- [x] Programar a aplicação TodoList
+
+- [x] Utilizar localstorage para persistir os dados
+
+- [x] Utilizar ECMAScript 6+
+
+- [x] Colocar projeto no Github
+
+  
+
+Plus - Nível 1
+
+ 
+- [x] Responsividade das telas
+
+- [x] Comente o código criando uma mini documentação
+
+- [x] Hospede o projeto em um servidor e nos mande a URL para visualização.
+
+  
+
+Plus - Nível 2
+
+- [x] Crie o recurso de edição da tarefa
+
+- [x] Implemente uma busca que utiliza os campos título e descrição juntos.
+
+ - [x] Ao listar todas as tarefas, ordene a lista de acordo com a prioridade: Urgentes, Importantes, Outras
+
+ - [x] Utilize o Vuex
+
+  
+  
+
+###  Instalação de dependencias e  execuçào do ambiente development
+
+
+  
+
+```bash
+
+#### Clone o repositorio ou faça download do .zip
+
+$  git  clone  https://github.com/brvnfr/vue-todo-app.git
+
+  
+
+#### Acesse o diretorio
+
+$  cd  vue-todo-app
+
+  
+
+#### Instale as dependências
+
+$  npm  i
+
+  
+
+#### Execute a aplicação em modo development
+
+$  npm  run  serve
