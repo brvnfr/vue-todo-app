@@ -56,6 +56,27 @@ export default {
     commit('setTasks', updatedTasks)
   },
 
+  deleteTaskById({ commit }, taskId) {
+    console.log('id vindo do formulario:', taskId)
+    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || []
+    console.log('array de tasks no localStorage', savedTasks)
+
+    // Encontra o índice da tarefa com o id correspondente
+    const indexToDelete = savedTasks.findIndex((task) => task.id === taskId)
+    console.log('index da tarefa a ser deletada', indexToDelete)
+
+    if (indexToDelete !== -1) {
+      // Remove a tarefa da array
+      savedTasks.splice(indexToDelete, 1)
+
+      // Atualiza o localStorage com as tarefas atualizadas
+      localStorage.setItem('tasks', JSON.stringify(savedTasks))
+
+      // Atualiza o estado Vuex com as tarefas atualizadas
+      commit('setTasks', savedTasks)
+    }
+  },
+
   updateFilter({ commit }, filter) {
     commit('setFilter', filter)
   },

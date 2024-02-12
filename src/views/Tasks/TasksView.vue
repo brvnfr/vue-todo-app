@@ -51,7 +51,7 @@
             :task="task"
             :index="index"
             @editTask="editTaskDialog"
-            @deleteTask="openDeleteTaskDialog"
+            @deleteTask="openDeleteTaskDialog(task.id)"
             @set-task-completed="setTaskComplete(task)"
           />
         </ul>
@@ -153,9 +153,8 @@ let editedTask = {
   completed: false,
   category: null,
 }
-
+let deletingTaskId = null
 let editingTaskIndex = null
-let deletingTaskIndex = null
 let newTaskFilter = null
 
 const tasks = computed(() => store.getters['tasks/getTasks'])
@@ -182,8 +181,8 @@ const closeEditTaskDialog = () => {
   showEditTaskDialog.value = false
 }
 
-const openDeleteTaskDialog = (index) => {
-  deletingTaskIndex = index
+const openDeleteTaskDialog = (taskId) => {
+  deletingTaskId = taskId
   showDeleteTaskDialog.value = true
 }
 
@@ -218,9 +217,12 @@ const editTask = () => {
 }
 
 const deleteTask = () => {
-  store.dispatch('tasks/deleteTask', deletingTaskIndex)
-
-  closeDeleteTaskDialog()
+  if (deletingTaskId !== null) {
+    store.dispatch('tasks/deleteTaskById', deletingTaskId)
+    closeDeleteTaskDialog()
+    deletingTaskId = null
+    store.dispatch('tasks/fetchTasks')
+  }
 }
 
 const setTaskComplete = (task) => {
@@ -254,7 +256,7 @@ const handleSearch = () => {
   store.dispatch('tasks/fetchTasks')
 }
 const pendingTasksCount = computed(() => {
-  return tasks.value.filter((task) => !task.completed).length
+  return tasks.value ? tasks.value.filter((task) => !task.completed).length : 0
 })
 
 onMounted(() => {
