@@ -14,7 +14,3 @@ const inputProps = {
   iconClass: 'magnifying-glass',
 }
 </script>
-
-<style scoped>
-/* Estilos específicos para a barra de busca */
-</style>
