@@ -24,6 +24,7 @@ const routes = [
         component: () => import('@/views/Tasks/TasksView.vue'),
         meta: { requiresAuth: true },
       },
+
       {
         path: '/settings',
         name: 'settings',

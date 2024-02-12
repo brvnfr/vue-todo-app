@@ -23,8 +23,8 @@
         }"
         >{{ task.category }}</span
       >
-      <div class="dropdown" ref="dropdownRef" @click="toggleDropdown">
-        <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" />
+      <div class="dropdown" ref="dropdownRef">
+        <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" @click="toggleDropdown" />
         <div v-if="showDropdown" class="dropdown-menu">
           <font-awesome-icon
             :icon="['fas', 'ellipsis-vertical']"
@@ -52,23 +52,26 @@ const emits = defineEmits(['editTask', 'deleteTask', 'set-task-completed'])
 const showDropdown = ref(false)
 
 const toggleDropdown = () => {
-  if (!props.task.completed) {
-    showDropdown.value = !showDropdown.value
-  }
+  showDropdown.value = !showDropdown.value
 }
 
 const emitEditTask = () => {
-  toggleDropdown()
   emits('editTask', props.index)
+  closeDropdown()
 }
 
 const emitDeleteTask = () => {
-  toggleDropdown()
   emits('deleteTask', props.index)
+  closeDropdown()
 }
 
 const markTaskAsCompleted = () => {
   emits('set-task-completed', props.index)
+  closeDropdown()
+}
+
+const closeDropdown = () => {
+  showDropdown.value = false
 }
 </script>
 
