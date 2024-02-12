@@ -114,11 +114,14 @@ const handleLogin = async () => {
     margin 1rem 2
 
 .main-content
+  display flex
+  justify-content center
   flex 1
   padding: 32px
 
 .centered-content
   display flex
+  width 400px
   justify-content center
   align-items center
   height 100%

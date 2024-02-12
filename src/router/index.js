@@ -8,7 +8,7 @@ const isAuthenticated = () => {
 const routes = [
   {
     path: '/',
-    redirect: '/tasks',
+    redirect: '/login',
     component: () => import('@/components/Layout/MainLayout.vue'),
     meta: { requiresAuth: true },
     children: [
@@ -58,10 +58,5 @@ const router = createRouter({
 //     next()
 //   }
 // })
-
-export const isRouteActive = (route) => {
-  const currentRoute = router.currentRoute.value
-  return currentRoute.path.startsWith(route)
-}
 
 export default router
