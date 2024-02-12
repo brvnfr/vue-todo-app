@@ -44,12 +44,13 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits } from 'vue'
+import { ref, defineProps, defineEmits, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps(['task', 'index'])
 const emits = defineEmits(['editTask', 'deleteTask', 'set-task-completed'])
 
 const showDropdown = ref(false)
+const dropdownRef = ref(null)
 
 const toggleDropdown = () => {
   showDropdown.value = !showDropdown.value
@@ -73,6 +74,20 @@ const markTaskAsCompleted = () => {
 const closeDropdown = () => {
   showDropdown.value = false
 }
+
+const handleClickOutside = (event) => {
+  if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+    closeDropdown()
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
 </script>
 
 <style scoped lang="stylus">
