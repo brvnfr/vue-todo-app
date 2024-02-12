@@ -31,6 +31,8 @@
           <button-component type="submit" button-type="primary" :full-width="true">
             Entrar
           </button-component>
+
+          <a href="#">Esqueci minha senha</a>
         </form-wrapper>
       </main>
     </section>
@@ -125,6 +127,9 @@ const handleLogin = async () => {
   justify-content center
   align-items center
   height 100%
+  a
+    color brand-blue-500
+    font-weight bold
 
 .login-form
   max-width 300px
