@@ -31,6 +31,9 @@ const mutations = {
   setFilter(state, filter) {
     state.filter = filter
   },
+  updateCategoryFilter(state, category) {
+    state.categoryFilter = category
+  },
 }
 
 export default mutations

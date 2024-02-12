@@ -61,4 +61,8 @@ export default {
   updateFilter({ commit }, filter) {
     commit('setFilter', filter)
   },
+
+  updateCategoryFilter({ commit }, category) {
+    commit('updateCategoryFilter', category)
+  },
 }

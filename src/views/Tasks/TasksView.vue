@@ -247,12 +247,6 @@ const handleCategoryFilter = (category) => {
   store.dispatch('tasks/fetchTasks')
 }
 
-const handleCompletedFilter = () => {
-  store.dispatch('tasks/updateFilter', newTaskFilter)
-  store.dispatch('tasks/updateCompletedFilter')
-  store.dispatch('tasks/fetchTasks')
-}
-
 const handleSearch = () => {
   store.dispatch('tasks/updateFilter', newTaskFilter)
   store.dispatch('tasks/fetchTasks')
