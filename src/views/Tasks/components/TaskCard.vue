@@ -19,12 +19,12 @@
       <span
         class="badge"
         :style="{
-          backgroundColor: task.category === 'urgent' ? '#FF4874' : '#FFC42E',
+          backgroundColor: task.category === 'Urgente' ? '#FF4874' : '#FFC42E',
         }"
         >{{ task.category }}</span
       >
-      <div class="dropdown" ref="dropdownRef" @click="toggleDropdown">
-        <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" />
+      <div class="dropdown" ref="dropdownRef">
+        <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" @click="toggleDropdown" />
         <div v-if="showDropdown" class="dropdown-menu">
           <font-awesome-icon
             :icon="['fas', 'ellipsis-vertical']"
@@ -44,32 +44,50 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits } from 'vue'
+import { ref, defineProps, defineEmits, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps(['task', 'index'])
 const emits = defineEmits(['editTask', 'deleteTask', 'set-task-completed'])
 
 const showDropdown = ref(false)
+const dropdownRef = ref(null)
 
 const toggleDropdown = () => {
-  if (!props.task.completed) {
-    showDropdown.value = !showDropdown.value
-  }
+  showDropdown.value = !showDropdown.value
 }
 
 const emitEditTask = () => {
-  toggleDropdown()
   emits('editTask', props.index)
+  closeDropdown()
 }
 
 const emitDeleteTask = () => {
-  toggleDropdown()
   emits('deleteTask', props.index)
+  closeDropdown()
 }
 
 const markTaskAsCompleted = () => {
   emits('set-task-completed', props.index)
+  closeDropdown()
 }
+
+const closeDropdown = () => {
+  showDropdown.value = false
+}
+
+const handleClickOutside = (event) => {
+  if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+    closeDropdown()
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
 </script>
 
 <style scoped lang="stylus">
