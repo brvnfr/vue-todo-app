@@ -85,7 +85,7 @@
   width calc(100% - 227px)
   display flex
   flex-direction column
-  justify-content end
+  justify-content start
   align-items center
   height calc(100% - 112px)
 
@@ -97,6 +97,7 @@
     margin-bottom: 90px;
 
   .task-search
+    margin-top 20vh
     margin-bottom 2rem
     padding: 1rem;
     h2
@@ -107,7 +108,8 @@
      margin-bottom 1rem
      strong
         color brand-blue-500
-
+    @media (max-width: 768px)
+      margin-top 0
   .task-search, .task-list
     min-width 300px
     width: 90%
