@@ -50,7 +50,7 @@
             :index="index"
             @editTask="editTaskDialog"
             @deleteTask="openDeleteTaskDialog"
-            @set-task-completed="setTaskComplete"
+            @set-task-completed="setTaskComplete(task)"
           />
         </ul>
       </div>

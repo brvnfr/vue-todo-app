@@ -27,16 +27,14 @@ export default {
     commit('setTasks', sortedTasks)
   },
 
-  setTaskCompleted({ commit, state }, index) {
-    const tasks = state.tasks
+  setTaskCompleted({ commit, state }, task) {
+    console.log('task chegando em setTaskcompleted', task)
+    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || []
 
-    if (index >= 0 && index < tasks.length) {
-      tasks[index].completed = true
+    const updatedTasks = savedTasks.map((t) => (t.id === task.id ? { ...t, ...task } : t))
 
-      commit('setTasks', [...tasks])
-
-      localStorage.setItem('tasks', JSON.stringify(tasks))
-    }
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks))
+    commit('setTasks', updatedTasks)
   },
 
   addTask({ commit, state }, task) {
