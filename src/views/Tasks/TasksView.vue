@@ -268,11 +268,10 @@ const getCategoryCount = (category) => {
     } else if (category === 'Importante') {
       return task.category === 'Importante' && !task.completed
     }
-    // Adicione mais condições conforme necessário para outras categorias
+
     return false
   })
 
-  // Retorna a contagem de tarefas na categoria
   return filteredTasks.length
 }
 
