@@ -79,7 +79,7 @@ const markTaskAsCompleted = () => {
   align-items center
 
 .task-card
-  padding 1.5rem
+  padding 1.5rem 1rem
   margin 0.5rem 0
   border-radius 5px
   display flex
