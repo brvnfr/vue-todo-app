@@ -197,7 +197,9 @@ const addTask = () => {
     closeAddTaskDialog()
     store.dispatch('tasks/fetchTasks')
   } else {
-    console.error('Por favor, preencha todos os campos obrigatórios.')
+    const errorMessage = 'Por favor, preencha todos os campos obrigatórios.'
+    console.error(errorMessage)
+    window.alert(errorMessage)
   }
 }
 
@@ -212,7 +214,9 @@ const editTask = () => {
     closeEditTaskDialog()
     store.dispatch('tasks/fetchTasks')
   } else {
-    console.error('Por favor, preencha todos os campos obrigatórios.')
+    const errorMessage = 'Por favor, preencha todos os campos obrigatórios.'
+    console.error(errorMessage)
+    window.alert(errorMessage)
   }
 }
 

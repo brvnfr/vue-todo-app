@@ -63,7 +63,9 @@ const handleLogin = async () => {
     if (isAuthenticated) {
       router.push('/tasks')
     } else {
-      console.error('Erro no login: Credenciais inválidas')
+      const errorMessage = 'Erro no login: Credenciais inválidas.'
+      console.error(errorMessage)
+      window.alert(errorMessage)
     }
   } catch (error) {
     console.error('Erro no login:', error)
