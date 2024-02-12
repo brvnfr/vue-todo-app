@@ -35,7 +35,8 @@ const { ref } = defineProps(['openDialog'])
   }
 
   @media (max-width: 768px)
-    width 56px
-    height 56px
-    bottom 124px
+    width 42px
+    height 42px
+    bottom 72px
+    right 8px
 </style>
