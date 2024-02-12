@@ -28,8 +28,10 @@
         <h2>Minhas Tarefas</h2>
         <p>
           Olá <strong>Eduardo Pereira da Costa</strong>,
-          <span> você tem <strong>tarefas pendentes</strong></span>
-          <span>você não tem tarefas pendentes</span>
+          <span v-if="pendingTasksCount > 0">
+            você tem <strong>{{ pendingTasksCount }} tarefas pendentes</strong>
+          </span>
+          <span v-else> você não tem nenhuma tarefa pendente </span>
         </p>
         <input-component
           v-model="newTaskFilter"
@@ -251,6 +253,9 @@ const handleSearch = () => {
   store.dispatch('tasks/updateFilter', newTaskFilter)
   store.dispatch('tasks/fetchTasks')
 }
+const pendingTasksCount = computed(() => {
+  return tasks.value.filter((task) => !task.completed).length
+})
 
 onMounted(() => {
   store.dispatch('tasks/fetchTasks')
