@@ -8,11 +8,11 @@
         </li>
         <li @click="handleCategoryFilter('urgent')">
           <font-awesome-icon :icon="['fas', 'chevron-right']" /> Urgentes
-          <span class="urgent-dot">0</span>
+          <span class="urgent-dot">{{ getCategoryCount('urgent') }}</span>
         </li>
         <li @click="handleCategoryFilter('important')">
           <font-awesome-icon :icon="['fas', 'chevron-right']" /> Importantes
-          <span class="important-dot">0</span>
+          <span class="important-dot">{{ getCategoryCount('important') }}</span>
         </li>
         <li @click="handleCategoryFilter('other')">
           <font-awesome-icon :icon="['fas', 'chevron-right']" /> Outras
@@ -157,7 +157,7 @@ let deletingTaskId = null
 let editingTaskIndex = null
 let newTaskFilter = null
 
-const tasks = computed(() => store.getters['tasks/getTasks'])
+const tasks = computed(() => store.getters['tasks/getTasks'] || [])
 
 const showAddTaskDialog = ref(false)
 const showEditTaskDialog = ref(false)
@@ -255,6 +255,23 @@ const handleSearch = () => {
   store.dispatch('tasks/updateFilter', newTaskFilter)
   store.dispatch('tasks/fetchTasks')
 }
+
+const getCategoryCount = (category) => {
+  // Filtra as tarefas pelo filtro atual
+  const filteredTasks = tasks.value.filter((task) => {
+    if (category === 'urgent') {
+      return task.category === 'urgent' && !task.completed
+    } else if (category === 'important') {
+      return task.category === 'important' && !task.completed
+    }
+    // Adicione mais condições conforme necessário para outras categorias
+    return false
+  })
+
+  // Retorna a contagem de tarefas na categoria
+  return filteredTasks.length
+}
+
 const pendingTasksCount = computed(() => {
   return tasks.value ? tasks.value.filter((task) => !task.completed).length : 0
 })
