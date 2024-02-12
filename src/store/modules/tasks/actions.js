@@ -14,8 +14,8 @@ export default {
     // Ordenar por categoria: 'urgent' primeiro, 'important' depois, o restante no final
     const sortedTasks = filteredTasks.sort((a, b) => {
       const categoryOrder = {
-        urgent: 1,
-        important: 0,
+        Urgente: 1,
+        Importante: 0,
       }
 
       const categoryA = categoryOrder[a.category] || 2

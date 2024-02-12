@@ -19,7 +19,7 @@
       <span
         class="badge"
         :style="{
-          backgroundColor: task.category === 'urgent' ? '#FF4874' : '#FFC42E',
+          backgroundColor: task.category === 'Urgente' ? '#FF4874' : '#FFC42E',
         }"
         >{{ task.category }}</span
       >

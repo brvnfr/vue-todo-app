@@ -6,13 +6,13 @@
         <li @click="handleCategoryFilter(null)">
           <font-awesome-icon :icon="['fas', 'chevron-right']" /> Todas
         </li>
-        <li @click="handleCategoryFilter('urgent')">
+        <li @click="handleCategoryFilter('Urgente')">
           <font-awesome-icon :icon="['fas', 'chevron-right']" /> Urgentes
-          <span class="urgent-dot">{{ getCategoryCount('urgent') }}</span>
+          <span class="urgent-dot">{{ getCategoryCount('Urgente') }}</span>
         </li>
-        <li @click="handleCategoryFilter('important')">
+        <li @click="handleCategoryFilter('Importante')">
           <font-awesome-icon :icon="['fas', 'chevron-right']" /> Importantes
-          <span class="important-dot">{{ getCategoryCount('important') }}</span>
+          <span class="important-dot">{{ getCategoryCount('Importante') }}</span>
         </li>
         <li @click="handleCategoryFilter('other')">
           <font-awesome-icon :icon="['fas', 'chevron-right']" /> Outras
@@ -67,8 +67,8 @@
               name="newTaskPriority"
               v-model="newTask.category"
               :options="[
-                { label: 'Urgente', value: 'urgent' },
-                { label: 'Importante', value: 'important' },
+                { label: 'Urgente', value: 'Urgente' },
+                { label: 'Importante', value: 'Importante' },
               ]"
             />
             <button-component type="submit" button-type="primary">Adicionar</button-component>
@@ -86,8 +86,8 @@
               name="editedTaskPriority"
               v-model="editedTask.category"
               :options="[
-                { label: 'Urgente', value: 'urgent' },
-                { label: 'Importante', value: 'important' },
+                { label: 'Urgente', value: 'Urgente' },
+                { label: 'Importante', value: 'Importante' },
               ]"
             />
             <button-component type="submit" button-type="primary">Salvar</button-component>
@@ -259,10 +259,10 @@ const handleSearch = () => {
 const getCategoryCount = (category) => {
   // Filtra as tarefas pelo filtro atual
   const filteredTasks = tasks.value.filter((task) => {
-    if (category === 'urgent') {
-      return task.category === 'urgent' && !task.completed
-    } else if (category === 'important') {
-      return task.category === 'important' && !task.completed
+    if (category === 'Urgente') {
+      return task.category === 'Urgente' && !task.completed
+    } else if (category === 'Importante') {
+      return task.category === 'Importante' && !task.completed
     }
     // Adicione mais condições conforme necessário para outras categorias
     return false
